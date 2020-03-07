@@ -35,17 +35,18 @@ class HomeFragment : Fragment() {
             var card: View = layoutInflater.inflate(R.layout.event_card, null);
             card.textView.text = "Button $i"
             card.setOnClickListener {
-                Toast.makeText(context, "Click $i", Toast.LENGTH_SHORT).show()
-                // Valid password: "qwerty1" i.e. button 1
-                // Delay - 5 sec.
-                Auth.Login("admin@ya.ru", "qwerty$i", fun (res: Auth?, err: String) {
+                // Пример авторизации:
+                // Валидный пароль: "qwerty1" то есть на кнопке "button 1"
+                // Задержка авторизаци - 3 секунды
+                Auth.login("admin@ya.ru", "qwerty$i", fun (res: Auth?, err: String) {
                     activity?.runOnUiThread(fun () {
+                        // Тут начинается код, выполняемый после завершения login
                         if (res != null)
                             Toast.makeText(context, "OK: ${res.accessToken}", Toast.LENGTH_SHORT).show()
                         else
                             Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
-                    });
-                });
+                    })
+                })
             }
             sLinLay.addView(card)
         }
