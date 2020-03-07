@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,7 +30,11 @@ class HomeFragment : Fragment() {
 //        })
 
         for (i in 0..29) {
-            sLinLay.addView(layoutInflater.inflate(R.layout.event_card, null))
+            var card: View = layoutInflater.inflate(R.layout.event_card, null);
+            card.setOnClickListener {
+                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
+            }
+            sLinLay.addView(card)
         }
         return root
     }
