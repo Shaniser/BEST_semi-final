@@ -3,21 +3,22 @@ package com.godelsoft.bestsemi_final
 import kotlinx.coroutines.*
 
 class Auth(accessToken: String) {
+    public var accessToken = "";
     init {
     }
 
     companion object {
         private suspend fun checkLogin(email: String, passwd: String): Boolean {
             delay(5000);
-            return email == "admin@ya.ru" && passwd == "qwerty";
+            return email == "admin@ya.ru" && passwd == "qwerty1";
         }
 
-        fun Login(email: String, passwd: String, callback: (Boolean, Auth?) -> Unit) {
+        fun Login(email: String, passwd: String, callback: (Auth?, String) -> Unit) {
             val job: Job = GlobalScope.launch(Dispatchers.IO) {
                 if (checkLogin(email, passwd)) {
-                    callback(true, Auth("123456"));
+                    callback(Auth("123456"), "");
                 }
-                callback(false, null);
+                callback(null, "Unauthorized");
             }
         }
     }

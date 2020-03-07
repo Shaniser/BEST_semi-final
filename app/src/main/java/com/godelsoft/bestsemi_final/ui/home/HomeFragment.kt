@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.godelsoft.bestsemi_final.Auth
 import com.godelsoft.bestsemi_final.R
+import kotlinx.android.synthetic.main.event_card.view.*
 
 class HomeFragment : Fragment() {
 
@@ -29,10 +31,21 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        })
 
-        for (i in 0..29) {
+        for (i in 0..10) {
             var card: View = layoutInflater.inflate(R.layout.event_card, null);
+            card.textView.text = "Button $i"
             card.setOnClickListener {
-                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Click $i", Toast.LENGTH_SHORT).show()
+                // Valid password: "qwerty1" i.e. button 1
+                // Delay - 5 sec.
+                Auth.Login("admin@ya.ru", "qwerty$i", fun (res: Auth?, err: String) {
+                    activity?.runOnUiThread(fun () {
+                        if (res != null)
+                            Toast.makeText(context, "OK: ${res.accessToken}", Toast.LENGTH_SHORT).show()
+                        else
+                            Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
+                    });
+                });
             }
             sLinLay.addView(card)
         }
