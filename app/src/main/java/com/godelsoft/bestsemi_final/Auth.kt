@@ -2,8 +2,9 @@ package com.godelsoft.bestsemi_final
 
 import kotlinx.coroutines.*
 
-class Auth(accessToken: String) {
-    public var accessToken = "";
+class Auth(var accessToken: String) {
+
+    //    public var accessToken = accessToken;
     init {
     }
 
