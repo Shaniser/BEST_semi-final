@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.godelsoft.bestsemi_final.Auth
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.godelsoft.bestsemi_final.EventAdapter
 import com.godelsoft.bestsemi_final.R
 import kotlinx.android.synthetic.main.event_card.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -29,31 +32,23 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val sLinLay: LinearLayout = root.findViewById(R.id.SLinLay)
-
-        for (i in 0..10) {
-            var card: View = layoutInflater.inflate(R.layout.event_card, null);
-            card.textView.text = "Button $i"
-            card.setOnClickListener {
-                // Пример авторизации:
-                // Валидный пароль: "qwerty1" то есть на кнопке "button 1"
-                // Задержка авторизаци - 3 секунды
-                homeViewModel.makeAuth("admin@ya.ru", "qwerty$i", fun(auth: Auth?, err: String?) {
-                    activity?.runOnUiThread(fun() {
-                        // Тут начинается код, выполняемый после завершения login
-                        if (auth != null)
-                            Toast.makeText(
-                                context,
-                                "OK: ${auth.accessToken}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        else
-                            Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
-                    })
-                })
-            }
-            sLinLay.addView(card)
-        }
+        val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(root.context)
+        recyclerView.adapter = EventAdapter(root.context)
         return root
+
+//        homeViewModel.makeAuth("admin@ya.ru", "qwerty$i", fun(auth: Auth?, err: String?) {
+//            activity?.runOnUiThread(fun() {
+//                // Тут начинается код, выполняемый после завершения login
+//                if (auth != null)
+//                    Toast.makeText(
+//                        context,
+//                        "OK: ${auth.accessToken}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                else
+//                    Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
+//            })
+//        })
     }
 }

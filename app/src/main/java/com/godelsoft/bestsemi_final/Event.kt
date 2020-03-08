@@ -1,9 +1,16 @@
 package com.godelsoft.bestsemi_final
 
-import java.util.*
+class Event(var time: String,
+            var sender: String,
+            var header: String,
+            var body: String
+) {
+    companion object {
+        var events = mutableMapOf<Int, Event>()
+        var counter = 0
 
-data class Event(
-    var name: String,
-    var date: Date,
-    var description: String
-)
+        fun addEvent(event: Event) {
+            events[counter++] = event
+        }
+    }
+}
