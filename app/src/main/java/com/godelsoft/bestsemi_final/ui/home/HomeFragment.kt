@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.godelsoft.bestsemi_final.EventAdapter
 import com.godelsoft.bestsemi_final.R
 
 class HomeFragment : Fragment() {
@@ -24,18 +27,9 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val sLinLay: LinearLayout = root.findViewById(R.id.SLinLay)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
-
-        for (i in 0..29) {
-            var card: View = layoutInflater.inflate(R.layout.event_card, null);
-            card.setOnClickListener {
-                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
-            }
-            sLinLay.addView(card)
-        }
+        val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(root.context)
+        recyclerView.adapter = EventAdapter(root.context)
         return root
     }
 }
