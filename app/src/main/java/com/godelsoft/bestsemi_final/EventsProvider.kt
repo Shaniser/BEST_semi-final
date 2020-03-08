@@ -4,15 +4,12 @@ import kotlinx.coroutines.delay
 import java.lang.Exception
 
 object EventsProvider {
-    private var isLoaded = false // Гарантирует как минимум один вызов reload
     private var allEvents = mutableListOf<Event>()
 
     // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
-    suspend fun reload(auth: Auth): String? {
+    suspend fun reload(): String? {
         allEvents.clear()
-        if (auth.error != null)
-            throw Exception("Auth error")
-        delay(3000)
+        delay(2000)
         // TODO: Загрузка данных из firebase
         allEvents.addAll(listOf(
             Event(
@@ -28,28 +25,16 @@ object EventsProvider {
                 "Too late to wake up"
             )
         ))
-        return null
-    }
-
-    // Инициализирует список и возвращает null в случае успеха, иначе - вернёт описание ошибки
-    suspend fun init(auth: Auth): String? {
-        isLoaded = true
-        return reload(auth)
+        return null // Ok
     }
 
     // Возвращает все события, которые пользователь в принципе может увидеть
     fun getAllAvaiableEvents(): MutableList<Event> {
-        if (!isLoaded) {
-            throw Exception("Events was not loaded")
-        }
         return allEvents
     }
 
     // Возвращает количество событий, которые пользователь в принципе может увидеть
     fun getAllAvaiableEventsCount(): Int {
-        if (!isLoaded) {
-            throw Exception("Events was not loaded")
-        }
         return allEvents.count()
     }
 }

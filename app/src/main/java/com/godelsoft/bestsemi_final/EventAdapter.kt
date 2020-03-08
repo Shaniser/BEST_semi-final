@@ -7,7 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EventAdapter(private val context: Context) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+
+class EventAdapter(
+    private val context: Context
+) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+
+    private var eventsList = mutableListOf<Event>()
 
     class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var header: TextView = itemView.findViewById(R.id.header)
@@ -32,10 +37,16 @@ class EventAdapter(private val context: Context) : RecyclerView.Adapter<EventAda
     }
 
     override fun getItemCount(): Int {
-        return EventsProvider.getAllAvaiableEventsCount()
+        return eventsList.count()
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        EventsProvider.getAllAvaiableEvents()[position].let { holder.bind(it) }
+        eventsList[position].let { holder.bind(it) }
+    }
+
+    fun update(data: List<Event>) {
+        eventsList.clear()
+        eventsList.addAll(data)
+        notifyDataSetChanged()
     }
 }

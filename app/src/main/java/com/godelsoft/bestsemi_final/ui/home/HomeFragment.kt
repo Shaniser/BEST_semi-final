@@ -10,9 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.godelsoft.bestsemi_final.Auth
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.godelsoft.bestsemi_final.EventAdapter
 import com.godelsoft.bestsemi_final.EventsProvider
 import com.godelsoft.bestsemi_final.R
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,26 +33,27 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
-//        recyclerView.adapter = EventAdapter(root.context)
+        val recyclerAdapter = EventAdapter(root.context)
+        recyclerView.adapter = recyclerAdapter
+        val swipeContainer: SwipeRefreshLayout = root.findViewById(R.id.swipeContainer)
 
+        // Перезагрузка списка при свайпе вниз
+        swipeContainer.setOnRefreshListener {
+            homeViewModel.scope.launch(Dispatchers.IO) {
+                EventsProvider.reload()
+                activity?.runOnUiThread {
+                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+                }
+                swipeContainer.isRefreshing = false
+            }
+        }
+
+        // Инициализировать список событий
         homeViewModel.scope.launch(Dispatchers.IO) {
-            // Объект auth уже должен быть готов тут
-            val auth = Auth.login("admin@ya.ru", "qwerty1")
-            if (auth.error == null)
-                EventsProvider.init(auth)
-            activity?.runOnUiThread(fun() {
-                if (auth.error == null) {
-                    // Тут recyclerView выводит обновлённые данные из адаптера
-                    recyclerView.adapter = EventAdapter(root.context)
-                }
-                else {
-                    Toast.makeText(
-                        context,
-                        "Error: ${auth.error}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
+            EventsProvider.reload()
+            activity?.runOnUiThread {
+                recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+            }
         }
 
         return root
