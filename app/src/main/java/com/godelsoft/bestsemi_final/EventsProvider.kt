@@ -1,33 +1,55 @@
 package com.godelsoft.bestsemi_final
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-
-// TODO: Implement this class
+import java.lang.Exception
 
 object EventsProvider {
-    // Возвращает все события, которые пользователь впринципе может увидеть
-    fun getAllAvaiableEvents(auth: Auth, callback: (List<Event>?, String) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
-            delay(3000);
-            // TODO: Используя данные из Auth получить список событий из firebase
-            callback(null, "")
-        }
+    private var isLoaded = false // Гарантирует как минимум один вызов reload
+    private var allEvents = mutableListOf<Event>()
+
+    // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
+    suspend fun reload(auth: Auth): String? {
+        allEvents.clear()
+        if (auth.error != null)
+            throw Exception("Auth error")
+        delay(3000)
+        // TODO: Загрузка данных из firebase
+        allEvents.addAll(listOf(
+            Event(
+                "8:30",
+                "Guy in the mirror",
+                "Math",
+                "Lectures at 8 AM are defenitly illegal :("
+            ),
+            Event(
+                "4:21",
+                "Our leader",
+                "Important event",
+                "Too late to wake up"
+            )
+        ))
+        return null
     }
 
-    // Возвращает события, связанные с пользователем
-    // Фильтр для вывода getAllAvaiableEvents
-    fun getUserEvents(auth: Auth, callback: (List<Event>?, String) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
-            getAllAvaiableEvents(auth, fun (res: List<Event>?, err: String) {
-                if (res == null)
-                    callback(null, err)
+    // Инициализирует список и возвращает null в случае успеха, иначе - вернёт описание ошибки
+    suspend fun init(auth: Auth): String? {
+        isLoaded = true
+        return reload(auth)
+    }
 
-                // TODO: Настроить фильтрацию на основе данных из Auth
-                // callback(res.filter(...), "")
-            })
+    // Возвращает все события, которые пользователь в принципе может увидеть
+    fun getAllAvaiableEvents(): MutableList<Event> {
+        if (!isLoaded) {
+            throw Exception("Events was not loaded")
         }
+        return allEvents
+    }
+
+    // Возвращает количество событий, которые пользователь в принципе может увидеть
+    fun getAllAvaiableEventsCount(): Int {
+        if (!isLoaded) {
+            throw Exception("Events was not loaded")
+        }
+        return allEvents.count()
     }
 }
