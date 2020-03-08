@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.godelsoft.bestsemi_final.Auth
 import com.godelsoft.bestsemi_final.R
 import kotlinx.android.synthetic.main.event_card.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 class HomeFragment : Fragment() {
 
@@ -27,9 +30,6 @@ class HomeFragment : Fragment() {
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val sLinLay: LinearLayout = root.findViewById(R.id.SLinLay)
-//        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
         for (i in 0..10) {
             var card: View = layoutInflater.inflate(R.layout.event_card, null);
@@ -38,11 +38,15 @@ class HomeFragment : Fragment() {
                 // Пример авторизации:
                 // Валидный пароль: "qwerty1" то есть на кнопке "button 1"
                 // Задержка авторизаци - 3 секунды
-                Auth.login("admin@ya.ru", "qwerty$i", fun (res: Auth?, err: String) {
-                    activity?.runOnUiThread(fun () {
+                homeViewModel.makeAuth("admin@ya.ru", "qwerty$i", fun(auth: Auth?, err: String?) {
+                    activity?.runOnUiThread(fun() {
                         // Тут начинается код, выполняемый после завершения login
-                        if (res != null)
-                            Toast.makeText(context, "OK: ${res.accessToken}", Toast.LENGTH_SHORT).show()
+                        if (auth != null)
+                            Toast.makeText(
+                                context,
+                                "OK: ${auth.accessToken}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         else
                             Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
                     })
