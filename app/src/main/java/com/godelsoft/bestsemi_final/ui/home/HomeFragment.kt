@@ -19,36 +19,39 @@ import kotlinx.android.synthetic.main.event_card.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
+            ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
         recyclerView.adapter = EventAdapter(root.context)
         return root
 
-//        homeViewModel.makeAuth("admin@ya.ru", "qwerty$i", fun(auth: Auth?, err: String?) {
+//        // Пример вызова функции авторизации
+//        homeViewModel.scope.launch(Dispatchers.IO) {
+//            val res = Auth.login("admin@ya.ru", "qwerty1")
 //            activity?.runOnUiThread(fun() {
 //                // Тут начинается код, выполняемый после завершения login
-//                if (auth != null)
+//                if (res.error == null)
 //                    Toast.makeText(
 //                        context,
-//                        "OK: ${auth.accessToken}",
+//                        "OK: ${res.accessToken}",
 //                        Toast.LENGTH_SHORT
 //                    ).show()
 //                else
-//                    Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, res.error, Toast.LENGTH_SHORT).show()
 //            })
-//        })
+//        }
     }
 }
