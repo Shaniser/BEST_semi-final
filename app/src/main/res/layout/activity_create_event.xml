@@ -23,8 +23,8 @@
         android:layout_width="344dp"
         android:layout_height="53dp"
         android:ems="10"
+        android:hint="Header"
         android:inputType="textPersonName"
-        android:text="Name"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,12 +34,14 @@
         android:id="@+id/bodyEdit"
         android:layout_width="344dp"
         android:layout_height="153dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Body"
         android:inputType="textMultiLine"
-        android:text="Body"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
 
@@ -49,7 +51,7 @@
         android:layout_height="94dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="377dp">
+        app:layout_constraintTop_toBottomOf="@+id/timeButton">
 
         <RadioButton
             android:id="@+id/radioPersonal"
@@ -62,7 +64,8 @@
             android:id="@+id/radioGlobal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Global" />
+            android:text="Global"
+            tools:visibility="visible" />
 
         <RadioButton
             android:id="@+id/radioLGB"
@@ -87,18 +90,20 @@
         android:layout_width="151dp"
         android:layout_height="46dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
         android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="302dp" />
+        app:layout_constraintTop_toBottomOf="@+id/bodyEdit" />
 
     <Button
         android:id="@+id/timeButton"
         android:layout_width="151dp"
         android:layout_height="46dp"
+        android:layout_marginTop="12dp"
         android:text="Time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toEndOf="@+id/dateButton"
-        tools:layout_editor_absoluteY="302dp" />
+        app:layout_constraintTop_toBottomOf="@+id/bodyEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

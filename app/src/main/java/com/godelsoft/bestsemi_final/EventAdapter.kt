@@ -9,8 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.selects.select
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class EventAdapter(
      private val context: Context
@@ -35,7 +37,10 @@ class EventAdapter(
                 EventCategory.GLOBAL -> context.getString(R.string.category_global_name)
                 EventCategory.LGB -> context.getString(R.string.category_lgb_name)
             }
-            time.text = SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.date)
+//            TODO: Good luck
+//            time.text = SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.date)
+//            time.text = DateFormat.getDateTimeInstance(DateFormat.)
+            time.text = with(event.date) { "${get(Calendar.HOUR)}:${get(Calendar.MINUTE)}" }
 
             when {
                 event.isSubscribed == false ->

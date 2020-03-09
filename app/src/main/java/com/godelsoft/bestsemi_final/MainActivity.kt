@@ -27,27 +27,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_chat))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-//        navView.setOnNavigationItemSelectedListener {
-//            when (it.itemId) {
-//                R.id.navigation_home -> {
-//                    // home
-//                    Log.d("TAG", "0")
-//                    true
-//                }
-//                R.id.navigation_dashboard -> {
-//                    // dashboard
-//                    Log.d("TAG", "1")
-//                    true
-//                }
-//                R.id.navigation_chat -> {
-//                    // chat
-//                    Log.d("TAG", "2")
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.action_bar, menu)
@@ -62,9 +41,7 @@ class MainActivity : AppCompatActivity() {
             R.id.itemSettings -> {
                 // TODO: открывать окно настроек
             }
-            R.id.itemNewEvent -> {
-                startActivityForResult<CreateEventActivity>(1)
-            }
+            R.id.itemNewEvent -> startActivityForResult<CreateEventActivity>(1)
         }
         return true
     }

@@ -9,7 +9,7 @@ enum class EventCategory {
 
 data class Event(
     var id:             Long,           // ID события
-    var date:           Date,           // Дата и время (Без учёта секунд)
+    var date:           Calendar,       // Дата и время (Без учёта секунд)
     var sender:         String,         // Автор события
     var header:         String,         // Заголовок
     var body:           String,         // Комментарий
