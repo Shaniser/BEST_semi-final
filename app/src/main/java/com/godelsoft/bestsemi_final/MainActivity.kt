@@ -1,6 +1,8 @@
 package com.godelsoft.bestsemi_final
 
 import android.os.Bundle
+import android.util.Log
+import android.util.LogPrinter
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -20,14 +22,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        /*val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_chat))
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)*/
 
 
+        navView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    // home
+                    Log.d("TAG", "0")
+                    true
+                }
+                R.id.navigation_dashboard -> {
+                    // dashboard
+                    Log.d("TAG", "1")
+                    true
+                }
+                R.id.navigation_chat -> {
+                    // chat
+                    Log.d("TAG", "2")
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

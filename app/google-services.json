@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "265735700573",
+    "firebase_url": "https://besthack-5c4e7.firebaseio.com",
+    "project_id": "besthack-5c4e7",
+    "storage_bucket": "besthack-5c4e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265735700573:android:1c89b38aee3e3fba830db4",
+        "android_client_info": {
+          "package_name": "com.godelsoft.bestsemi_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265735700573-9thivumri1dtfadqh8h670a251kgilq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZSVE48We_9iYwowKfyb6OQK13xkvC7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265735700573-9thivumri1dtfadqh8h670a251kgilq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
