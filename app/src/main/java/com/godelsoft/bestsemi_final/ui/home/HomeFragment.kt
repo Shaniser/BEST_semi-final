@@ -49,10 +49,12 @@ class HomeFragment : Fragment() {
         }
 
         // Инициализировать список событий
+        swipeContainer.isRefreshing = true
         homeViewModel.scope.launch(Dispatchers.IO) {
             EventsProvider.reload()
             activity?.runOnUiThread {
                 recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+                swipeContainer.isRefreshing = false
             }
         }
 
