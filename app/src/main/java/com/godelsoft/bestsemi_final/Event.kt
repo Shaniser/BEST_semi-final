@@ -3,6 +3,7 @@ package com.godelsoft.bestsemi_final
 import android.graphics.Color
 import java.util.*
 
+
 enum class EventCategory {
     LGB, GLOBAL, PERSONAL
 }

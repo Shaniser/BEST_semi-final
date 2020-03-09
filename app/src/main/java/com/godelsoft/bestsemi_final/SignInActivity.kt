@@ -13,6 +13,7 @@ import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import android.util.Log
+import com.godelsoft.bestsemi_final.util.FirestoreUtil
 
 
 class SignInActivity : AppCompatActivity() {
@@ -43,9 +44,10 @@ class SignInActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 val progressDialog = indeterminateProgressDialog("Setting up your account")
-                // TODO firebase
-                startActivity(intentFor<MainActivity>().newTask().clearTask())
-                progressDialog.dismiss()
+                FirestoreUtil.initCurrentUserIfFirstTime {
+                    startActivity(intentFor<MainActivity>().newTask().clearTask())
+                    progressDialog.dismiss()
+                }
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
                 if (response == null) return

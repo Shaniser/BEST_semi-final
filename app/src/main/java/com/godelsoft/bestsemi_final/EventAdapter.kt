@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+
 class EventAdapter(
      private val context: Context
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
