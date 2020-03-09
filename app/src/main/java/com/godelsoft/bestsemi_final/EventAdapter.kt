@@ -12,6 +12,7 @@ import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
+
 class EventAdapter(
      private val context: Context
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {

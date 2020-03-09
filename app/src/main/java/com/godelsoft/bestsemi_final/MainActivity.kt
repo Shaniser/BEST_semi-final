@@ -1,15 +1,19 @@
 package com.godelsoft.bestsemi_final
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.godelsoft.bestsemi_final.fragment.MyAccountFragment
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 // TODO: открывать карточку с фильтрами событий (и чатов?)
             }
             R.id.itemSettings -> {
+                replaceFragment(MyAccountFragment())
                 // TODO: открывать окно настроек
             }
             R.id.itemNewEvent -> {
@@ -64,5 +69,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    @SuppressLint("CommitTransaction")
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, fragment)
+            commit()
+        }
     }
 }

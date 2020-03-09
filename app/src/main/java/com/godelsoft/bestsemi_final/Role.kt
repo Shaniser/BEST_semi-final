@@ -1,5 +1,6 @@
 package com.godelsoft.bestsemi_final
 
+
 enum class Role {
     VISITOR, LBG;
 
