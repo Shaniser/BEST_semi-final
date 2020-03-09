@@ -49,13 +49,18 @@ class HomeFragment : Fragment() {
         }
 
         // Инициализировать список событий
-        swipeContainer.isRefreshing = true
-        homeViewModel.scope.launch(Dispatchers.IO) {
-            EventsProvider.reload()
-            activity?.runOnUiThread {
-                recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
-                swipeContainer.isRefreshing = false
+        if (EventsProvider.needsReload()) {
+            swipeContainer.isRefreshing = true
+            homeViewModel.scope.launch(Dispatchers.IO) {
+                EventsProvider.reload()
+                activity?.runOnUiThread {
+                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+                    swipeContainer.isRefreshing = false
+                }
             }
+        }
+        else {
+            recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
         }
 
         return root

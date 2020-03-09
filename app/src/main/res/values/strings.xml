@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">BEST semi-final</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Flow</string>
+    <string name="title_dashboard">Calendar</string>
     <string name="title_chat">Chat</string>
+    <string name="preferences_button_title">Settings</string>
+    <string name="Filter_button_title">Filter</string>
+    <string name="new_event_button_title">New event</string>
 </resources>
