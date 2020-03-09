@@ -8,14 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
 class HomeViewModel : ViewModel() {
-
-    private val viewModelJob = Job()
-    val scope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
