@@ -76,7 +76,7 @@ class MyAccountFragment : Fragment() {
             val selectedImageBmp = MediaStore.Images.Media
                 .getBitmap(activity?.contentResolver, selectedImagePath)
 
-            var outputStream = ByteArrayOutputStream()
+            val outputStream = ByteArrayOutputStream()
             selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
             selectedImageBytes = outputStream.toByteArray()
 
@@ -92,12 +92,12 @@ class MyAccountFragment : Fragment() {
         super.onStart()
         FirestoreUtil.getCurrentUser { user ->
             if (this@MyAccountFragment.isVisible) {
-                editText_name.text = user.name
-                editText_bio.text = user.bio
+                editText_name.setText(user.name)
+                editText_bio.setText(user.bio)
                 if (!pictureJustChanged && user.profilePicture != null)
                     GlideApp.with(this)
                         .load(StorageUtil.pathToReference(user.profilePicture))
-                        .placeholder(R.drawable.fui_ic_anonymous_white_24dp)
+                        .placeholder(R.drawable.ic_account_circle_black_24dp)
                         .into(imageView_profile)
             }
         }

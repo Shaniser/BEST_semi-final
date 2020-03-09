@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
                 // TODO: открывать карточку с фильтрами событий (и чатов?)
             }
             R.id.itemSettings -> {
-//                replaceFragment(MyAccountFragment())
-                startActivity<AccountActivity>()
+                replaceFragment(MyAccountFragment())
+                //startActivity<AccountActivity>()
                 // TODO: открывать окно настроек
             }
             R.id.itemNewEvent -> {
