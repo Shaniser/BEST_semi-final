@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.godelsoft.bestsemi_final.fragment.MyAccountFragment
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity() {
                 // TODO: открывать карточку с фильтрами событий (и чатов?)
             }
             R.id.itemSettings -> {
-                replaceFragment(MyAccountFragment())
+//                replaceFragment(MyAccountFragment())
+                startActivity<AccountActivity>()
                 // TODO: открывать окно настроек
             }
             R.id.itemNewEvent -> {
