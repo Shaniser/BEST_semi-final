@@ -1,11 +1,12 @@
 package com.godelsoft.bestsemi_final
 
 import kotlinx.coroutines.delay
+import java.util.*
 
 object EventsProvider {
     private var allEvents = mutableListOf<Event>()
-    private var isDataLoaded = false //Позволяет не перезагружать данные в случае, если
 
+    private var isDataLoaded = false //Позволяет не перезагружать данные в случае, если
     fun needsReload() = !isDataLoaded
 
     // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
@@ -16,16 +17,22 @@ object EventsProvider {
         allEvents.addAll(
             listOf(
                 Event(
-                    "8:30",
+                    1L,
+                    Date(2020, 3, 10, 8, 30),
                     "Guy in the mirror",
                     "Math",
-                    "Lectures at 8 AM are defenitly illegal :("
+                    "Lectures at 8 AM are defenitly illegal :(",
+                    EventCategory.GLOBAL,
+                    null
                 ),
                 Event(
-                    "4:21",
+                    2L,
+                    Date(2020, 3, 10, 4, 21),
                     "Our leader",
                     "Important event",
-                    "Too late to wake up"
+                    "Too late to wake up",
+                    EventCategory.PERSONAL,
+                    true
                 )
             )
         )
