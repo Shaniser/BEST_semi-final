@@ -15,8 +15,10 @@ import com.godelsoft.bestsemi_final.EventAdapter
 import com.godelsoft.bestsemi_final.EventsProvider
 import com.godelsoft.bestsemi_final.R
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
@@ -39,9 +41,9 @@ class HomeFragment : Fragment() {
 
         // Перезагрузка списка при свайпе вниз
         swipeContainer.setOnRefreshListener {
-            homeViewModel.scope.launch(Dispatchers.IO) {
+            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                 EventsProvider.reload()
-                activity?.runOnUiThread {
+                withContext(Dispatchers.Main) {
                     recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
                 }
                 swipeContainer.isRefreshing = false
@@ -51,9 +53,9 @@ class HomeFragment : Fragment() {
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
             swipeContainer.isRefreshing = true
-            homeViewModel.scope.launch(Dispatchers.IO) {
+            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                 EventsProvider.reload()
-                activity?.runOnUiThread {
+                withContext(Dispatchers.Main) {
                     recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
                     swipeContainer.isRefreshing = false
                 }
