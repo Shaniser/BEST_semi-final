@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateEventActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Create new event"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nameEdit"
+        android:layout_width="344dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/bodyEdit"
+        android:layout_width="344dp"
+        android:layout_height="153dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Body"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="342dp"
+        android:layout_height="94dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="377dp">
+
+        <RadioButton
+            android:id="@+id/radioPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Personal" />
+
+        <RadioButton
+            android:id="@+id/radioGlobal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Global" />
+
+        <RadioButton
+            android:id="@+id/radioLGB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LGB" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="343dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:text="Deploy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="151dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="302dp" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="151dp"
+        android:layout_height="46dp"
+        android:text="Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toEndOf="@+id/dateButton"
+        tools:layout_editor_absoluteY="302dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,18 @@
 package com.godelsoft.bestsemi_final
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 // TODO: открывать окно настроек
             }
             R.id.itemNewEvent -> {
-                // TODO: открывать окно создания события
+                startActivityForResult<CreateEventActivity>(1)
             }
         }
         return true
