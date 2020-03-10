@@ -37,7 +37,7 @@ object EventsProvider {
                         "Guy in the mirror",
                         "Math",
                         "Lectures aaat 8 AM are defenitly illegal :(",
-                        EventCategory.GLOBAL,
+                        EventCategory.LGB,
                         null
                     ),
                     Event(
@@ -93,7 +93,7 @@ object EventsProvider {
 
     // Возвращает все события, которые пользователь в принципе может увидеть
     fun getAllAvaiableEvents(): List<Event> {
-        return allEvents
+        return allEvents.sortedBy { it.date }
     }
 
     // Возвращает количество событий, которые пользователь в принципе может увидеть
