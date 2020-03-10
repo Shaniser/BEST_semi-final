@@ -1,7 +1,6 @@
 package com.godelsoft.bestsemi_final
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,11 +10,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.godelsoft.bestsemi_final.fragment.MyAccountFragment
 import org.jetbrains.anko.startActivity
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
 
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             R.id.itemFilter -> {
                 // TODO: открывать карточку с фильтрами событий (и чатов?)
             }
-            R.id.itemSettings -> replaceFragment(MyAccountFragment())
+            R.id.itemSettings -> startActivity<MyAccountActivity>()
             R.id.itemNewEvent -> startActivityForResult<CreateEventActivity>(1)
         }
         return true

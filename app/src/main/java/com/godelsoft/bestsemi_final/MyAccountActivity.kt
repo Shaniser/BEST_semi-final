@@ -1,40 +1,34 @@
-package com.godelsoft.bestsemi_final.fragment
+package com.godelsoft.bestsemi_final
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.firebase.ui.auth.AuthUI
-import com.godelsoft.bestsemi_final.R
-import com.godelsoft.bestsemi_final.SignInActivity
 import com.godelsoft.bestsemi_final.glide.GlideApp
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.godelsoft.bestsemi_final.util.StorageUtil
-import kotlinx.android.synthetic.main.fragment_my_account.*
-import kotlinx.android.synthetic.main.fragment_my_account.view.*
-import kotlinx.android.synthetic.main.fragment_my_account.view.editText_name
+import kotlinx.android.synthetic.main.activity_my_account.*
 import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.support.v4.intentFor
 import java.io.ByteArrayOutputStream
 
-
-class MyAccountFragment : Fragment() {
+class MyAccountActivity : AppCompatActivity() {
 
     private val selectImage = 2
     private lateinit var selectedImageBytes: ByteArray
     private var pictureJustChanged = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_my_account, container, false)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_my_account)
+
+        val view = findViewById<View>(R.id.conLay)
 
         view.apply {
             imageView_profile.setOnClickListener {
@@ -50,31 +44,41 @@ class MyAccountFragment : Fragment() {
                 if (::selectedImageBytes.isInitialized)
                     StorageUtil.uploadProfilePhoto(selectedImageBytes) { imagePath ->
                         FirestoreUtil.updateCurrentUser(editText_name.text.toString(),
-                        editText_bio.text.toString(), imagePath)
+                            editText_bio.text.toString(), imagePath)
                     }
                 else
                     FirestoreUtil.updateCurrentUser(editText_name.text.toString(),
                         editText_bio.text.toString(), null)
+                finish()
             }
 
             btn_sign_out.setOnClickListener {
                 AuthUI.getInstance()
-                    .signOut(this@MyAccountFragment.context!!)
+                    .signOut(this.context!!)
                     .addOnCompleteListener {
                         startActivity(intentFor<SignInActivity>().newTask().clearTask())
                     }
             }
         }
 
-        return view
+        FirestoreUtil.getCurrentUser { user ->
+                editText_name.setText(user.name)
+                editText_bio.setText(user.bio)
+                if (!pictureJustChanged && user.profilePicture != null)
+                    GlideApp.with(this)
+                        .load(StorageUtil.pathToReference(user.profilePicture))
+                        .placeholder(R.drawable.ic_account_circle_black_24dp)
+                        .into(imageView_profile)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == selectImage && resultCode == Activity.RESULT_OK &&
-                data != null && data.data != null) {
+            data != null && data.data != null) {
             val selectedImagePath = data.data
             val selectedImageBmp = MediaStore.Images.Media
-                .getBitmap(activity?.contentResolver, selectedImagePath)
+                .getBitmap(contentResolver, selectedImagePath)
 
             val outputStream = ByteArrayOutputStream()
             selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
@@ -87,20 +91,4 @@ class MyAccountFragment : Fragment() {
             pictureJustChanged = true
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        FirestoreUtil.getCurrentUser { user ->
-            if (this@MyAccountFragment.isVisible) {
-                editText_name.setText(user.name)
-                editText_bio.setText(user.bio)
-                if (!pictureJustChanged && user.profilePicture != null)
-                    GlideApp.with(this)
-                        .load(StorageUtil.pathToReference(user.profilePicture))
-                        .placeholder(R.drawable.ic_account_circle_black_24dp)
-                        .into(imageView_profile)
-            }
-        }
-    }
-
 }
