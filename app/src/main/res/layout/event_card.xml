@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="15dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
@@ -12,27 +12,41 @@
         android:id="@+id/conLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorIcons">
 
-        <TextView
-            android:id="@+id/header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Header"
-            android:textColor="@color/colorAccent"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <View
+            android:id="@+id/categoryColor"
+            android:layout_width="8dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorEventInactive"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/body"
-            android:layout_width="wrap_content"
+            android:id="@+id/header"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Body"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Header"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/categoryColor"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Body\n"
+            android:textColor="@color/colorPrimaryText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/categoryColor"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
         <TextView
@@ -40,19 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Sender"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/body" />
-
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Category"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/colorSecondaryText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time"
             app:layout_constraintTop_toBottomOf="@+id/body" />
 
         <TextView
@@ -60,12 +67,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="Time"
+            android:textColor="@color/colorSecondaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sender" />
+            app:layout_constraintTop_toBottomOf="@+id/body" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

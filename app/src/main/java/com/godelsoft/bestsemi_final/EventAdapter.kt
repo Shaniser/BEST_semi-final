@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.selects.select
@@ -25,7 +26,7 @@ class EventAdapter(
         private var header: TextView = itemView.findViewById(R.id.header)
         private var body: TextView = itemView.findViewById(R.id.body)
         private var sender: TextView = itemView.findViewById(R.id.sender)
-        private var category: TextView = itemView.findViewById(R.id.category)
+        private var categoryColor: View = itemView.findViewById(R.id.categoryColor)
         private var time: TextView = itemView.findViewById(R.id.time)
         private var conLay: ConstraintLayout = itemView.findViewById(R.id.conLay)
 
@@ -33,26 +34,18 @@ class EventAdapter(
             header.text = event.header
             body.text = event.body
             sender.text = event.sender
-            category.text = when (event.category) {
-                EventCategory.PERSONAL -> context.getString(R.string.category_personal_name)
-                EventCategory.GLOBAL -> context.getString(R.string.category_global_name)
-                EventCategory.LGB -> context.getString(R.string.category_lgb_name)
+            when (event.category) {
+                EventCategory.PERSONAL ->
+                    categoryColor.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
+                EventCategory.GLOBAL ->
+                    categoryColor.setBackgroundColor(getColor(context, R.color.colorEventGlobal))
+                EventCategory.LGB ->
+                    categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
 //            TODO: Good luck
 //            time.text = SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.date)
 //            time.text = DateFormat.getDateTimeInstance(DateFormat.)
             time.text = with(event.date) { "${get(Calendar.HOUR)}:${get(Calendar.MINUTE)}" }
-
-            when {
-                event.isSubscribed == false ->
-                    conLay.setBackgroundColor(getColor(context, R.color.colorEventInactive))
-                event.category == EventCategory.PERSONAL ->
-                    conLay.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
-                event.category == EventCategory.GLOBAL ->
-                    conLay.setBackgroundColor(getColor(context, R.color.colorEventGlobal))
-                event.category == EventCategory.LGB ->
-                    conLay.setBackgroundColor(getColor(context, R.color.colorEventLGB))
-            }
         }
     }
 
