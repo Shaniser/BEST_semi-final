@@ -1,9 +1,14 @@
 package com.godelsoft.bestsemi_final
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -17,6 +22,9 @@ import org.jetbrains.anko.startActivityForResult
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var floatingActionButton: View
+    private var isFABActive = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,9 +49,38 @@ class MainActivity : AppCompatActivity() {
                 // TODO: открывать карточку с фильтрами событий (и чатов?)
             }
             R.id.itemSettings -> startActivity<MyAccountActivity>()
-            R.id.itemNewEvent -> startActivityForResult<CreateEventActivity>(1)
         }
         return true
+    }
+
+    fun showFAB() {
+        if (!isFABActive) {
+            isFABActive = true
+            floatingActionButton = findViewById(R.id.floatingActionButton)
+            floatingActionButton.visibility = View.VISIBLE
+            floatingActionButton.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this,
+                    R.anim.fab_full_size
+                )
+            )
+        }
+    }
+
+    fun hideFAB() {
+        floatingActionButton = findViewById(R.id.floatingActionButton)
+        if (isFABActive) {
+            isFABActive = false
+            var anim = AnimationUtils.loadAnimation(this, R.anim.fab_null_size)
+            anim.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {}
+                override fun onAnimationStart(animation: Animation?) {}
+                override fun onAnimationEnd(animation: Animation?) {
+                    floatingActionButton.visibility = View.GONE
+                }
+            })
+            floatingActionButton.startAnimation(anim)
+        }
     }
 
     @SuppressLint("CommitTransaction")

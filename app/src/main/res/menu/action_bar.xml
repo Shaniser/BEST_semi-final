@@ -11,9 +11,4 @@
         android:title="@string/preferences_button_title"
         app:showAsAction="never">
     </item>
-    <item
-        android:id="@+id/itemNewEvent"
-        android:title="@string/new_event_button_title"
-        app:showAsAction="never">
-    </item>
 </menu>

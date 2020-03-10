@@ -7,18 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.godelsoft.bestsemi_final.Auth
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.godelsoft.bestsemi_final.EventAdapter
-import com.godelsoft.bestsemi_final.EventsProvider
-import com.godelsoft.bestsemi_final.R
+import com.godelsoft.bestsemi_final.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.anko.startActivityForResult
 
 class HomeFragment : Fragment() {
 
@@ -38,6 +36,20 @@ class HomeFragment : Fragment() {
         val recyclerAdapter = EventAdapter(root.context)
         recyclerView.adapter = recyclerAdapter
         val swipeContainer: SwipeRefreshLayout = root.findViewById(R.id.swipeContainer)
+
+        recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy <= 0) {
+                    if (activity is MainActivity) {
+                        (activity as MainActivity).showFAB()
+                    }
+                } else {
+                    if (activity is MainActivity) {
+                        (activity as MainActivity).hideFAB()
+                    }
+                }
+            }
+        })
 
         // Перезагрузка списка при свайпе вниз
         swipeContainer.setOnRefreshListener {
@@ -63,6 +75,15 @@ class HomeFragment : Fragment() {
         }
         else {
             recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+        }
+
+        if (activity is MainActivity) {
+           (activity as MainActivity).apply {
+               showFAB()
+               findViewById<View>(R.id.floatingActionButton).setOnClickListener {
+                   startActivityForResult<CreateEventActivity>(1)
+               }
+           }
         }
 
         return root
