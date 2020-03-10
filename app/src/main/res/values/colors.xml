@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7e4077</color>
-    <color name="colorPrimaryDark">#3d193d</color>
-    <color name="colorAccent">#e7d2ea</color>
+    <color name="colorPrimary">#9C27B0</color>
+    <color name="colorPrimaryDark">#7B1FA2</color>
+    <color name="colorPrimaryLight">#E1BEE7</color>
+    <color name="colorAccent">#7C4DFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
     <color name="colorEventInactive">#453E3E</color>
     <color name="colorEventPersonal">#8FD582</color>
     <color name="colorEventGlobal">#E8CA32</color>
     <color name="colorEventLGB">#CF3030</color>
+
+
+
+
 </resources>
