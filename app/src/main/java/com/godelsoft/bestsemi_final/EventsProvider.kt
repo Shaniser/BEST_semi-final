@@ -21,11 +21,33 @@ object EventsProvider {
                     Event(
                         1L,
                         Calendar.getInstance().also {
-                            it.set(2020, 3, 10, 8, 30)
+                            it.set(2020, 2, 10, 8, 30)
                         },
                         "Guy in the mirror",
                         "Math",
                         "Lectures at 8 AM are defenitly illegal :(",
+                        EventCategory.GLOBAL,
+                        null
+                    ),
+                    Event(
+                        1L,
+                        Calendar.getInstance().also {
+                            it.set(2020, 3, 10, 8, 30)
+                        },
+                        "Guy in the mirror",
+                        "Math",
+                        "Lectures aaat 8 AM are defenitly illegal :(",
+                        EventCategory.GLOBAL,
+                        null
+                    ),
+                    Event(
+                        1L,
+                        Calendar.getInstance().also {
+                            it.set(2021, 3, 10, 8, 30)
+                        },
+                        "Guy in the mirror",
+                        "Math",
+                        "Lectures addt 8 AM are defenitly illegal :(",
                         EventCategory.GLOBAL,
                         null
                     ),
@@ -39,6 +61,17 @@ object EventsProvider {
                         "Too late to wake up",
                         EventCategory.PERSONAL,
                         true
+                    ),
+                    Event(
+                        1L,
+                        Calendar.getInstance().also {
+                            it.set(2020, 4, 10, 8, 30)
+                        },
+                        "Guy in the mirror",
+                        "Math",
+                        "Lectures at 8 AM qweare defenitly illegal :(",
+                        EventCategory.GLOBAL,
+                        null
                     )
                 )
             )
@@ -59,12 +92,26 @@ object EventsProvider {
     }
 
     // Возвращает все события, которые пользователь в принципе может увидеть
-    fun getAllAvaiableEvents(): MutableList<Event> {
+    fun getAllAvaiableEvents(): List<Event> {
         return allEvents
     }
 
     // Возвращает количество событий, которые пользователь в принципе может увидеть
     fun getAllAvaiableEventsCount(): Int {
         return allEvents.count()
+    }
+
+    // Возвращает все события за заданный день в порядке возрастания
+    fun getEventsByDay(date: Calendar): List<Event> {
+        return allEvents.filter {
+            it.date.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH) &&
+            it.date.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+            it.date.get(Calendar.YEAR) == date.get(Calendar.YEAR)
+        }.sortedBy { it.date }
+    }
+
+    // Возвращает все события по фильтру в порядке возрастания
+    fun getEventsByFilter(filter: (Event) -> Boolean) : List<Event> {
+        return allEvents.filter(filter).sortedBy { it.date }
     }
 }
