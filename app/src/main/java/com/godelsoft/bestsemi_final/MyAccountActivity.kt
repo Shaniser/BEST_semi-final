@@ -29,9 +29,10 @@ class MyAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
 
-        val view = findViewById<View>(R.id.conLay)
-
-        view.apply {
+        findViewById<View>(R.id.conLay).apply {
+            back.setOnClickListener {
+                onBackPressed()
+            }
             imageView_profile.setOnClickListener {
                 val intent = Intent().apply {
                     type = "image/*"

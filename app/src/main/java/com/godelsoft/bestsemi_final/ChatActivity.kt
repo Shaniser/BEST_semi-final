@@ -2,6 +2,7 @@ package com.godelsoft.bestsemi_final
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.godelsoft.bestsemi_final.model.MessageType
 import com.godelsoft.bestsemi_final.model.TextMessage
@@ -34,7 +35,7 @@ class ChatActivity : AppCompatActivity() {
             messagesListenerRegistration =
                 FirestoreUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
 
-            imageView_send.setOnClickListener {
+            send.setOnClickListener {
                 val messageToSend =
                     TextMessage(editText_message.text.toString(), Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid, MessageType.TEXT)
@@ -42,9 +43,13 @@ class ChatActivity : AppCompatActivity() {
                 FirestoreUtil.sendMessage(messageToSend, channelId)
             }
 
-            fab_send_image.setOnClickListener {
+            addImage.setOnClickListener {
                 // TODO: send image messages
             }
+        }
+
+        findViewById<View>(R.id.back).setOnClickListener {
+            onBackPressed()
         }
     }
 
