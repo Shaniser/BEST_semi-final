@@ -4,10 +4,11 @@ import android.view.Gravity
 import android.widget.FrameLayout
 import com.godelsoft.bestsemi_final.EventsProvider
 import com.godelsoft.bestsemi_final.model.Message
+import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.item_text_message.*
+import kotlinx.android.synthetic.main.item_image_message.*
 import org.jetbrains.anko.wrapContent
 
 
@@ -21,9 +22,8 @@ abstract class MessageItem(
     }
 
     private fun setTimeText(viewHolder: GroupieViewHolder) {
-        val c = EventsProvider.getCalendarFromDate(message.time)
         viewHolder.textView_message_time.text =
-            "${EventsProvider.formatDate(c)} ${EventsProvider.formatTime(c)}"
+            "${CalFormatter.datef(message.time)} ${CalFormatter.timef(message.time)}"
     }
 
     private fun setMessageRootGravity(viewHolder: GroupieViewHolder) {
