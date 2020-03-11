@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -73,12 +74,13 @@ class CreateEventActivity : AppCompatActivity() {
                 ).show();
             }
             else {
+
                 CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                     EventsProvider.addEvent(
                         Event(
                             1L, // TODO: Id
                             date,
-                            "Sender", // TODO: Get name from firebase
+                            (FirebaseAuth.getInstance().currentUser?.displayName) ?: "Unknown", // TODO: Unknown?
                             nameEdit.text.toString(),
                             bodyEdit.text.toString(),
                             when {
