@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Create new event"
-        android:textSize="36sp"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:ems="10"
         android:hint="Header"
         android:inputType="textPersonName"
-        android:textSize="24sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -39,7 +40,7 @@
         android:gravity="start|top"
         android:hint="Body"
         android:inputType="textMultiLine"
-        android:textSize="24sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
         android:id="@+id/radioGroup"
         android:layout_width="342dp"
         android:layout_height="94dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeButton">
@@ -76,31 +78,40 @@
 
     <Button
         android:id="@+id/saveButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="343dp"
         android:layout_height="47dp"
-        android:layout_marginTop="20dp"
-        android:text="Deploy"
+        android:layout_marginBottom="16dp"
+        android:text="Save"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/dateButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="151dp"
         android:layout_height="46dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
-        android:text="Date"
+        android:text="Pick date"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bodyEdit" />
 
     <Button
         android:id="@+id/timeButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="151dp"
         android:layout_height="46dp"
         android:layout_marginTop="12dp"
-        android:text="Time"
+        android:text="Pick time"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toEndOf="@+id/dateButton"
