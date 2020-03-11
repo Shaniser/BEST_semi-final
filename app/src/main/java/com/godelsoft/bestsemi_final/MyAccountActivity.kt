@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_my_account.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
+import org.jetbrains.anko.toast
 import java.io.ByteArrayOutputStream
 
 class MyAccountActivity : AppCompatActivity() {
@@ -49,7 +50,8 @@ class MyAccountActivity : AppCompatActivity() {
                 else
                     FirestoreUtil.updateCurrentUser(editText_name.text.toString(),
                         editText_bio.text.toString(), null)
-                finish()
+                toast("Saving")
+                //finish()
             }
 
             btn_sign_out.setOnClickListener {

@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -16,7 +15,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import org.jetbrains.anko.startActivity
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jetbrains.anko.startActivityForResult
 
@@ -45,9 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.itemFilter -> {
-                // TODO: открывать карточку с фильтрами событий (и чатов?)
-            }
+            R.id.itemFilter -> startActivity<PeopleActivity>()
             R.id.itemSettings -> startActivity<MyAccountActivity>()
         }
         return true
@@ -71,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         floatingActionButton = findViewById(R.id.floatingActionButton)
         if (isFABActive) {
             isFABActive = false
-            var anim = AnimationUtils.loadAnimation(this, R.anim.fab_null_size)
+            val anim = AnimationUtils.loadAnimation(this, R.anim.fab_null_size)
             anim.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationRepeat(animation: Animation?) {}
                 override fun onAnimationStart(animation: Animation?) {}
@@ -83,11 +79,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("CommitTransaction")
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, fragment)
-            commit()
-        }
-    }
 }
