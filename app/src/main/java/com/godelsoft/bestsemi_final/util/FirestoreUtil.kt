@@ -3,6 +3,7 @@ package com.godelsoft.bestsemi_final.util
 import android.content.Context
 import android.util.Log
 import com.godelsoft.bestsemi_final.model.*
+import com.godelsoft.bestsemi_final.recyclerview.item.ImageMessageItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -115,7 +116,7 @@ object FirestoreUtil {
                     if (it["type"] == MessageType.TEXT)
                         items.add(TextMessageItem(it.toObject(TextMessage::class.java)!!, context))
                     else
-                        TODO("Add image message")
+                        items.add(ImageMessageItem(it.toObject(ImageMessage::class.java)!!, context))
                 }
                 onListen(items)
             }
