@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.godelsoft.bestsemi_final.ui.events.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
@@ -73,10 +75,7 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 1 -> {
-//                    val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeContainer)
-//                    swipeRefreshLayout?.post(Runnable {
-//                        swipeRefreshLayout.isRefreshing = true
-//                    })
+                    HomeFragment.homeFragment.reload()
                 }
             }
         }
