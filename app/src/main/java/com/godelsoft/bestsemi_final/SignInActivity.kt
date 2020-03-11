@@ -28,12 +28,10 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        account_sign_in.setOnClickListener {
-            val intent = AuthUI.getInstance().createSignInIntentBuilder()
-                .setAvailableProviders(signInProviders)
-                .build()
-            startActivityForResult(intent, signIn)
-        }
+        val intent = AuthUI.getInstance().createSignInIntentBuilder()
+            .setAvailableProviders(signInProviders)
+            .build()
+        startActivityForResult(intent, signIn)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
