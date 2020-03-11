@@ -9,10 +9,7 @@ import android.widget.Toast
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
-import kotlinx.android.synthetic.main.event_card.*
-import kotlinx.android.synthetic.main.item_text_message.*
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity() {
