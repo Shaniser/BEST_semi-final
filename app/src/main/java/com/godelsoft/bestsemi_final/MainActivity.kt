@@ -73,10 +73,10 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 1 -> {
-                    val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeContainer)
-                    swipeRefreshLayout?.post(Runnable {
-                        swipeRefreshLayout.isRefreshing = true
-                    })
+//                    val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeContainer)
+//                    swipeRefreshLayout?.post(Runnable {
+//                        swipeRefreshLayout.isRefreshing = true
+//                    })
                 }
             }
         }

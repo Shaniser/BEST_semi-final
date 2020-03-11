@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity() {
+    var isSaving = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
@@ -60,42 +62,44 @@ class CreateEventActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            if (!isDateSetted || !isTimeSetted) {
-                Toast.makeText(
-                    applicationContext,
-                    "Set time and date first",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-            else if (nameEdit.text.toString() == "" || bodyEdit.text.toString() == "") {
-                Toast.makeText(
-                    applicationContext,
-                    "Set header and body first",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-            else {
+            if (!isSaving) {
+                if (!isDateSetted || !isTimeSetted) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Set time and date first",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                } else if (nameEdit.text.toString() == "" || bodyEdit.text.toString() == "") {
+                    Toast.makeText(
+                        applicationContext,
+                        "Set header and body first",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                } else {
+                    isSaving = true
 
-                CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                    EventsProvider.addEvent(
-                        Event(
-                            1L, // TODO: Id
-                            date,
-                            (FirebaseAuth.getInstance().currentUser?.displayName) ?: "Unknown", // TODO: Unknown?
-                            nameEdit.text.toString(),
-                            bodyEdit.text.toString(),
-                            when {
-                                radioGlobal.isChecked -> EventCategory.GLOBAL
-                                radioPersonal.isChecked -> EventCategory.PERSONAL
-                                radioLGB.isChecked -> EventCategory.LGB
-                                else -> throw Exception("Wrong event type")
-                            },
-                            null
+                    CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
+                        EventsProvider.addEvent(
+                            Event(
+                                1L, // TODO: Id
+                                date,
+                                (FirebaseAuth.getInstance().currentUser?.displayName)
+                                    ?: "Unknown", // TODO: Unknown?
+                                nameEdit.text.toString(),
+                                bodyEdit.text.toString(),
+                                when {
+                                    radioGlobal.isChecked -> EventCategory.GLOBAL
+                                    radioPersonal.isChecked -> EventCategory.PERSONAL
+                                    radioLGB.isChecked -> EventCategory.LGB
+                                    else -> throw Exception("Wrong event type")
+                                },
+                                null
+                            )
                         )
-                    )
-                    withContext(Dispatchers.Main) {
-                        setResult(Activity.RESULT_OK)
-                        finish()
+                        withContext(Dispatchers.Main) {
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        }
                     }
                 }
             }
