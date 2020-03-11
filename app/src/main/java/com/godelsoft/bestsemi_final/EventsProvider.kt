@@ -141,4 +141,10 @@ object EventsProvider {
         } (c.get(Calendar.MINUTE))
         return "$hours:$minutes"
     }
+
+    fun getCalendarFromDate(d: Date): Calendar {
+        return Calendar.getInstance().also {
+            it.time = d // TODO: check this
+        }
+    }
 }

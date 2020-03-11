@@ -3,6 +3,7 @@ package com.godelsoft.bestsemi_final.recyclerview.item
 import android.content.Context
 import android.view.Gravity
 import android.widget.FrameLayout
+import com.godelsoft.bestsemi_final.EventsProvider
 import com.godelsoft.bestsemi_final.R
 import com.godelsoft.bestsemi_final.model.TextMessage
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.item_text_message.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.wrapContent
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TextMessageItem(
@@ -29,6 +31,9 @@ class TextMessageItem(
         //val dateFormat = SimpleDateFormat
         //    .getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
         //viewHolder.textView_message_time.text = dateFormat.format(message.text)
+
+        val c = EventsProvider.getCalendarFromDate(message.time)
+        viewHolder.textView_message_time.text = "${EventsProvider.formatDate(c)} ${EventsProvider.formatTime(c)}"
     }
 
     private fun setMessageRootGravity(viewHolder: GroupieViewHolder) {
