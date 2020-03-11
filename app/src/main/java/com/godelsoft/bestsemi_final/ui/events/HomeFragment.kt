@@ -21,6 +21,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    lateinit var recycleAdapter: EventAdapter
+    lateinit var swipeContainer: SwipeRefreshLayout
+
+    companion object {
+        lateinit var homeFragment: HomeFragment
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,9 +39,10 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
-        val recyclerAdapter = EventAdapter(root.context)
-        recyclerView.adapter = recyclerAdapter
-        val swipeContainer: SwipeRefreshLayout = root.findViewById(R.id.swipeContainer)
+        recycleAdapter = EventAdapter(root.context)
+        recyclerView.adapter = recycleAdapter
+        swipeContainer = root.findViewById(R.id.swipeContainer)
+        homeFragment = this
 
         recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -52,13 +60,7 @@ class HomeFragment : Fragment() {
 
         // Перезагрузка списка при свайпе вниз
         swipeContainer.setOnRefreshListener {
-            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                EventsProvider.reload()
-                withContext(Dispatchers.Main) {
-                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
-                }
-                swipeContainer.isRefreshing = false
-            }
+            reload()
         }
         if (container != null) {
             swipeContainer.setColorSchemeColors(
@@ -70,17 +72,10 @@ class HomeFragment : Fragment() {
 
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
-            swipeContainer.isRefreshing = true
-            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                EventsProvider.reload()
-                withContext(Dispatchers.Main) {
-                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
-                    swipeContainer.isRefreshing = false
-                }
-            }
+            reload()
         }
         else {
-            recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+            recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
         }
 
         if (activity is MainActivity) {
@@ -93,5 +88,16 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+    
+    fun reload() {
+        swipeContainer.isRefreshing = true
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
+            EventsProvider.reload()
+            withContext(Dispatchers.Main) {
+                recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
+            }
+            swipeContainer.isRefreshing = false
+        }
     }
 }
