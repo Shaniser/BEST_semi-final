@@ -80,10 +80,10 @@
             tools:visibility="visible" />
 
         <RadioButton
-            android:id="@+id/radioLGB"
+            android:id="@+id/radioLBG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LGB" />
+            android:text="LBG" />
     </RadioGroup>
 
     <Button

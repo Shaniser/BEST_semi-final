@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
+import com.godelsoft.bestsemi_final.util.CalFormatter
 
 
 class EventAdapter(
@@ -33,11 +34,10 @@ class EventAdapter(
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
                 EventCategory.GLOBAL ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventGlobal))
-                EventCategory.LGB ->
+                EventCategory.LBG ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
-            // TODO: Строки с плейсхолдерами в ресурсах
-            time.text = "${EventsProvider.formatDate(event.date)} ${EventsProvider.formatTime(event.date)}"
+            time.text = "${CalFormatter.datef(event.date)} ${CalFormatter.timef(event.date)}"
         }
     }
 
