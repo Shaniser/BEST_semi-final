@@ -11,7 +11,6 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_text_message.*
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.wrapContent
-import java.text.SimpleDateFormat
 
 
 class TextMessageItem(
@@ -34,14 +33,12 @@ class TextMessageItem(
     private fun setMessageRootGravity(viewHolder: GroupieViewHolder) {
         if (message.senderId == FirebaseAuth.getInstance().currentUser?.uid) {
             viewHolder.message_root.apply {
-                backgroundResource = R.drawable.rect_round_white
                 val lParams = FrameLayout.LayoutParams(wrapContent, wrapContent, Gravity.END)
                 this.layoutParams = lParams
             }
         }
         else {
             viewHolder.message_root.apply {
-                backgroundResource = R.drawable.rect_round_primary_color
                 val lParams = FrameLayout.LayoutParams(wrapContent, wrapContent, Gravity.START)
                 this.layoutParams = lParams
             }

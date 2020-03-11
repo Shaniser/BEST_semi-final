@@ -2,6 +2,7 @@ package com.godelsoft.bestsemi_final
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.godelsoft.bestsemi_final.model.MessageType
 import com.godelsoft.bestsemi_final.model.TextMessage
@@ -45,6 +46,10 @@ class ChatActivity : AppCompatActivity() {
             addImage.setOnClickListener {
                 // TODO: send image messages
             }
+        }
+
+        findViewById<View>(R.id.back).setOnClickListener {
+            onBackPressed()
         }
     }
 
