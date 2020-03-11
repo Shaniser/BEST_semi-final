@@ -9,11 +9,8 @@ import com.godelsoft.bestsemi_final.model.TextMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.item_text_message.*
-import org.jetbrains.anko.backgroundResource
+import kotlinx.android.synthetic.main.text_message_card.*
 import org.jetbrains.anko.wrapContent
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class TextMessageItem(
@@ -46,7 +43,7 @@ class TextMessageItem(
         }
     }
 
-    override fun getLayout() = R.layout.item_text_message
+    override fun getLayout() = R.layout.text_message_card
 
     override fun isSameAs(other: com.xwray.groupie.Item<*>?): Boolean {
         if (other !is TextMessageItem)

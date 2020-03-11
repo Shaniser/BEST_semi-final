@@ -9,18 +9,18 @@ import androidx.lifecycle.ViewModelProviders
 import com.godelsoft.bestsemi_final.MainActivity
 import com.godelsoft.bestsemi_final.R
 
-class DashboardFragment : Fragment() {
+class CalendarFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var calendarViewModel: CalendarViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        calendarViewModel =
+                ViewModelProviders.of(this).get(CalendarViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_calendar, container, false)
         
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()

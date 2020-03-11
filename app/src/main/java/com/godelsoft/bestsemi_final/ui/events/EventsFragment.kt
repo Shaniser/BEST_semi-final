@@ -17,15 +17,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.startActivityForResult
 
-class HomeFragment : Fragment() {
+class EventsFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var eventsViewModel: EventsViewModel
 
     lateinit var recycleAdapter: EventAdapter
     lateinit var swipeContainer: SwipeRefreshLayout
 
     companion object {
-        lateinit var homeFragment: HomeFragment
+        lateinit var homeFragment: EventsFragment
     }
     
     override fun onCreateView(
@@ -33,8 +33,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        eventsViewModel =
+            ViewModelProviders.of(this).get(EventsViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
