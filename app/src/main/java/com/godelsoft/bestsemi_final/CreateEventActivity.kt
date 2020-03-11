@@ -6,6 +6,7 @@ import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.event_card.*
@@ -29,7 +30,8 @@ class CreateEventActivity : AppCompatActivity() {
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                    dateButton.text = EventsProvider.formatDate(date.also {
+                    dateButton.text = CalFormatter.datef(date.also {
+                        it.set(Calendar.YEAR, year)
                         it.set(Calendar.YEAR, year)
                         it.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         it.set(Calendar.MONTH, monthOfYear)
@@ -48,7 +50,7 @@ class CreateEventActivity : AppCompatActivity() {
             val tpd = TimePickerDialog(
                 this,
                 TimePickerDialog.OnTimeSetListener { _, hours, minutes ->
-                    timeButton.text = EventsProvider.formatTime(date.also {
+                    timeButton.text = CalFormatter.timef(date.also {
                         it.set(Calendar.HOUR_OF_DAY, hours)
                         it.set(Calendar.MINUTE, minutes)
                     })

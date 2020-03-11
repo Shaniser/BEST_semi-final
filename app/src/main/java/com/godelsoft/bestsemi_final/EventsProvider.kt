@@ -114,37 +114,4 @@ object EventsProvider {
     fun getEventsByFilter(filter: (Event) -> Boolean) : List<Event> {
         return allEvents.filter(filter).sortedBy { it.date }
     }
-
-
-    // Формирует строку с датой
-    fun formatDate(c: Calendar): String {
-        val day= {day: Int ->
-            if (day < 10) "0$day" else "$day"
-        } (c.get(Calendar.DAY_OF_MONTH))
-        val month = {month: Int ->
-            if (month < 10) "0$month" else "$month"
-        } (c.get(Calendar.MONTH) + 1)
-        val year = {year: Int ->
-            if (year != Calendar.getInstance().get(Calendar.YEAR))
-                (year % 100).toString()
-            else
-                ""
-        } (c.get(Calendar.YEAR))
-        return "$day.$month${if (year != "") ".$year" else ""}"
-    }
-
-    // Формирует строку со временем
-    fun formatTime(c: Calendar): String {
-        val hours= c.get(Calendar.HOUR_OF_DAY).toString()
-        val minutes = {month: Int ->
-            if (month < 10) "0$month" else "$month"
-        } (c.get(Calendar.MINUTE))
-        return "$hours:$minutes"
-    }
-
-    fun getCalendarFromDate(d: Date): Calendar {
-        return Calendar.getInstance().also {
-            it.time = d // TODO: check this
-        }
-    }
 }
