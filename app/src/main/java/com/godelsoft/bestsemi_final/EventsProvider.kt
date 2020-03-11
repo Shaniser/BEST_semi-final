@@ -123,7 +123,7 @@ object EventsProvider {
         } (c.get(Calendar.DAY_OF_MONTH))
         val month = {month: Int ->
             if (month < 10) "0$month" else "$month"
-        } (c.get(Calendar.MONTH))
+        } (c.get(Calendar.MONTH) + 1)
         val year = {year: Int ->
             if (year != Calendar.getInstance().get(Calendar.YEAR))
                 (year % 100).toString()
@@ -135,7 +135,7 @@ object EventsProvider {
 
     // Формирует строку со временем
     fun formatTime(c: Calendar): String {
-        val hours= c.get(Calendar.HOUR).toString()
+        val hours= c.get(Calendar.HOUR_OF_DAY).toString()
         val minutes = {month: Int ->
             if (month < 10) "0$month" else "$month"
         } (c.get(Calendar.MINUTE))

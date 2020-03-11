@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
+import kotlinx.android.synthetic.main.event_card.*
+import kotlinx.android.synthetic.main.item_text_message.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,12 +26,11 @@ class CreateEventActivity : AppCompatActivity() {
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                    date.set(Calendar.YEAR, year)
-                    date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    date.set(Calendar.MONTH, monthOfYear)
-                    dateButton.text = with(date) { // TODO: Fix formatter
-                        "${get(Calendar.DAY_OF_MONTH)}.${get(Calendar.MONTH)}.${get(Calendar.YEAR)}"
-                    }
+                    dateButton.text = EventsProvider.formatDate(date.also {
+                        it.set(Calendar.YEAR, year)
+                        it.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        it.set(Calendar.MONTH, monthOfYear)
+                    })
                     isDateSetted = true
                 },
                 c.get(Calendar.YEAR),
@@ -44,11 +45,10 @@ class CreateEventActivity : AppCompatActivity() {
             val tpd = TimePickerDialog(
                 this,
                 TimePickerDialog.OnTimeSetListener { _, hours, minutes ->
-                    date.set(Calendar.HOUR, hours)
-                    date.set(Calendar.MINUTE, minutes)
-                    timeButton.text = with(date) { // TODO: Fix formatter
-                        "${get(Calendar.HOUR)}:${get(Calendar.MINUTE)}"
-                    }
+                    timeButton.text = EventsProvider.formatTime(date.also {
+                        it.set(Calendar.HOUR_OF_DAY, hours)
+                        it.set(Calendar.MINUTE, minutes)
+                    })
                     isTimeSetted = true
                 },
                 c.get(Calendar.HOUR_OF_DAY),

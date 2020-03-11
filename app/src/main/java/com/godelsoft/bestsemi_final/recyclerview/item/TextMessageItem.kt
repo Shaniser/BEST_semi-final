@@ -27,11 +27,6 @@ class TextMessageItem(
     }
 
     private fun setTimeText(viewHolder: GroupieViewHolder) {
-        // TODO: datetime
-        //val dateFormat = SimpleDateFormat
-        //    .getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT)
-        //viewHolder.textView_message_time.text = dateFormat.format(message.text)
-
         val c = EventsProvider.getCalendarFromDate(message.time)
         viewHolder.textView_message_time.text = "${EventsProvider.formatDate(c)} ${EventsProvider.formatTime(c)}"
     }
