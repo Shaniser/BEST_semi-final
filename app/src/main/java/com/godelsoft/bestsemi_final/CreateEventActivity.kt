@@ -22,6 +22,10 @@ class CreateEventActivity : AppCompatActivity() {
         var isDateSetted = false
         var isTimeSetted = false
 
+        back.setOnClickListener {
+            onBackPressed()
+        }
+
         dateButton.setOnClickListener {
             val c = Calendar.getInstance()
             val dpd = DatePickerDialog(

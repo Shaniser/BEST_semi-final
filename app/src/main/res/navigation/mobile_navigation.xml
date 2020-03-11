@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.godelsoft.bestsemi_final.ui.events.HomeFragment"
+        android:name="com.godelsoft.bestsemi_final.ui.events.EventsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.godelsoft.bestsemi_final.ui.calendar.DashboardFragment"
+        android:name="com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
         android:id="@+id/navigation_chat"

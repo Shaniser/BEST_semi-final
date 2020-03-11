@@ -6,32 +6,32 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.godelsoft.bestsemi_final.ui.events.HomeFragment
+import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.onRefresh
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var floatingActionButton: View
     private var isFABActive = false
+    lateinit var headerMain: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
+
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
         findViewById<View>(R.id.container).apply {
+            headerMain = header
             filter.setOnClickListener {
                 //TODO ФИЛЬТЕР СДЕЛАЙТЕ УЖЕ ПОЖАЛУЙСТА >_<
             }
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 1 -> {
-                    HomeFragment.homeFragment.reload()
+                    EventsFragment.homeFragment.reload()
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.godelsoft.bestsemi_final.util
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -17,6 +18,14 @@ object StorageUtil {
     fun uploadProfilePhoto(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
         val ref = currentUserRef
             .child("profilePictures/${UUID.nameUUIDFromBytes(imageBytes)}")
+        ref.putBytes(imageBytes)
+            .addOnSuccessListener {
+                onSuccess(ref.path)
+            }
+    }
+
+    fun uploadMessageImage(imageBytes: ByteArray, onSuccess: (imagePath: String) -> Unit) {
+        val ref = currentUserRef.child("messages/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
             .addOnSuccessListener {
                 onSuccess(ref.path)

@@ -1,31 +1,31 @@
 package com.godelsoft.bestsemi_final.recyclerview.item
 
 import android.content.Context
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import android.view.Gravity
-import android.widget.FrameLayout
 import com.godelsoft.bestsemi_final.R
-import com.godelsoft.bestsemi_final.model.TextMessage
-import com.godelsoft.bestsemi_final.util.CalFormatter
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.card_text_message.*
-import org.jetbrains.anko.wrapContent
+import com.godelsoft.bestsemi_final.glide.GlideApp
+import com.godelsoft.bestsemi_final.model.ImageMessage
+import com.godelsoft.bestsemi_final.util.StorageUtil
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import kotlinx.android.synthetic.main.item_image_message.*
 
 
-class TextMessageItem(
-    val message: TextMessage,
+class ImageMessageItem(
+    val message: ImageMessage,
     val context: Context
 ) : MessageItem(message) {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.textView_message_text.text = message.text
         super.bind(viewHolder, position)
+        GlideApp.with(context)
+            .load(StorageUtil.pathToReference(message.imagePath))
+            .placeholder(R.drawable.ic_image_black_24dp)
+            .into(viewHolder.imageView_message_image)
     }
 
-    override fun getLayout() = R.layout.card_text_message
+    override fun getLayout() = R.layout.item_image_message
 
     override fun isSameAs(other: com.xwray.groupie.Item<*>?): Boolean {
-        if (other !is TextMessageItem)
+        if (other !is ImageMessageItem)
             return false
         if (this.message != other.message)
             return false
@@ -33,7 +33,7 @@ class TextMessageItem(
     }
 
     override fun equals(other: Any?): Boolean {
-        return isSameAs(other as? TextMessageItem)
+        return isSameAs(other as? ImageMessageItem)
     }
 
     override fun hashCode(): Int {
