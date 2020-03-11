@@ -42,10 +42,8 @@ class EventAdapter(
                 EventCategory.LGB ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
-//            TODO: Good luck
-//            time.text = SimpleDateFormat("dd.MM.yyyy hh:mm").format(event.date)
-//            time.text = DateFormat.getDateTimeInstance(DateFormat.)
-            time.text = with(event.date) { "${get(Calendar.HOUR)}:${get(Calendar.MINUTE)}" }
+            // TODO: Строки с плейсхолдерами в ресурсах
+            time.text = "${EventsProvider.formatDate(event.date)} ${EventsProvider.formatTime(event.date)}"
         }
     }
 
