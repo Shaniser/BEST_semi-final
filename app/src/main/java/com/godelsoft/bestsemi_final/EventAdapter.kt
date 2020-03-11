@@ -6,14 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.selects.select
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class EventAdapter(
@@ -51,7 +45,7 @@ class EventAdapter(
         return EventViewHolder(
             LayoutInflater
                 .from(context)
-                .inflate(R.layout.event_card, parent, false)
+                .inflate(R.layout.card_event, parent, false)
         )
     }
 

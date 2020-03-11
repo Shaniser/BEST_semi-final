@@ -7,7 +7,7 @@ import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.util.StorageUtil
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import kotlinx.android.synthetic.main.person_card.*
+import kotlinx.android.synthetic.main.card_person.*
 
 class PersonItem(
     val person: User,
@@ -25,5 +25,5 @@ class PersonItem(
                 .into(viewHolder.imageView_profile_picture)
     }
 
-    override fun getLayout() = R.layout.person_card
+    override fun getLayout() = R.layout.card_person
 }

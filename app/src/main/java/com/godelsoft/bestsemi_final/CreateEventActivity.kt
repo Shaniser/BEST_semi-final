@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
-import kotlinx.android.synthetic.main.event_card.*
-import kotlinx.android.synthetic.main.text_message_card.*
+import kotlinx.android.synthetic.main.card_event.*
+import kotlinx.android.synthetic.main.card_text_message.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*

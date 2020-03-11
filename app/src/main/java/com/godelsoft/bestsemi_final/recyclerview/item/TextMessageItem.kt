@@ -9,7 +9,7 @@ import com.godelsoft.bestsemi_final.model.TextMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.text_message_card.*
+import kotlinx.android.synthetic.main.card_text_message.*
 import org.jetbrains.anko.wrapContent
 
 
@@ -43,7 +43,7 @@ class TextMessageItem(
         }
     }
 
-    override fun getLayout() = R.layout.text_message_card
+    override fun getLayout() = R.layout.card_text_message
 
     override fun isSameAs(other: com.xwray.groupie.Item<*>?): Boolean {
         if (other !is TextMessageItem)
