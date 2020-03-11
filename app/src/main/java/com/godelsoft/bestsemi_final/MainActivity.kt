@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.container).apply {
             filter.setOnClickListener {
-                startActivity<PeopleActivity>()
+                //TODO ФИЛЬТЕР СДЕЛАЙТЕ УЖЕ ПОЖАЛУЙСТА >_<
             }
             account.setOnClickListener{
                 startActivity<MyAccountActivity>()
