@@ -34,7 +34,7 @@ class ChatActivity : AppCompatActivity() {
             messagesListenerRegistration =
                 FirestoreUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
 
-            imageView_send.setOnClickListener {
+            send.setOnClickListener {
                 val messageToSend =
                     TextMessage(editText_message.text.toString(), Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid, MessageType.TEXT)
@@ -42,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
                 FirestoreUtil.sendMessage(messageToSend, channelId)
             }
 
-            fab_send_image.setOnClickListener {
+            addImage.setOnClickListener {
                 // TODO: send image messages
             }
         }
