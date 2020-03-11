@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">BEST semi-final</string>
-    <string name="title_home">Flow</string>
+    <string name="title_home">Events</string>
     <string name="title_dashboard">Calendar</string>
     <string name="title_chat">Chat</string>
     <string name="preferences_button_title">Settings</string>
     <string name="Filter_button_title">Filter</string>
-    <string name="new_event_button_title">New event</string>
+    <string name="new_event_button_titlev">New event</string>
     <string name="category_personal_name">Personal</string>
     <string name="category_global_name">Global</string>
     <string name="category_lgb_name">LGB</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_message">Your message</string>
 </resources>

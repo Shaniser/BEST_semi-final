@@ -1,5 +1,6 @@
 package com.godelsoft.bestsemi_final
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -93,7 +94,7 @@ class CreateEventActivity : AppCompatActivity() {
                         )
                     )
                     withContext(Dispatchers.Main) {
-                        setResult(1)
+                        setResult(Activity.RESULT_OK)
                         finish()
                     }
                 }

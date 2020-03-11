@@ -27,8 +27,13 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = intent.getStringExtra(AppConstants.USER_NAME)
+
+        findViewById<View>(R.id.conLay).apply {
+            back.setOnClickListener {
+                onBackPressed()
+            }
+            name.text = intent.getStringExtra(AppConstants.USER_NAME)
+        }
 
         val otherUserId = intent.getStringExtra(AppConstants.USER_ID)!!
         FirestoreUtil.getOrCreateChatChannel(otherUserId) { channelId ->
@@ -50,10 +55,6 @@ class ChatActivity : AppCompatActivity() {
             addImage.setOnClickListener {
                 // TODO: send image messages
             }
-        }
-
-        findViewById<View>(R.id.back).setOnClickListener {
-            onBackPressed()
         }
     }
 

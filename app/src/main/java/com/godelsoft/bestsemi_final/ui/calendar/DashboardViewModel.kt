@@ -1,4 +1,4 @@
-package com.godelsoft.bestsemi_final.ui.dashboard
+package com.godelsoft.bestsemi_final.ui.calendar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,24 +1,20 @@
 package com.godelsoft.bestsemi_final
 
-import android.annotation.SuppressLint
-import android.opengl.Visibility
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import org.jetbrains.anko.startActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.event_card.*
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.onRefresh
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.container).apply {
             filter.setOnClickListener {
-                startActivity<PeopleActivity>()
+                //TODO ФИЛЬТЕР СДЕЛАЙТЕ УЖЕ ПОЖАЛУЙСТА >_<
             }
             account.setOnClickListener{
                 startActivity<MyAccountActivity>()
@@ -73,4 +69,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                1 -> {
+                    val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeContainer)
+                    swipeRefreshLayout?.post(Runnable {
+                        swipeRefreshLayout.isRefreshing = true
+                    })
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }
