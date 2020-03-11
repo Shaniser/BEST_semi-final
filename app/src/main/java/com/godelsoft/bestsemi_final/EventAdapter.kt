@@ -6,14 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.selects.select
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
+import com.godelsoft.bestsemi_final.util.CalFormatter
 
 
 class EventAdapter(
@@ -28,6 +23,7 @@ class EventAdapter(
         private var sender: TextView = itemView.findViewById(R.id.sender)
         private var categoryColor: View = itemView.findViewById(R.id.categoryColor)
         private var time: TextView = itemView.findViewById(R.id.time)
+        private var date: TextView = itemView.findViewById(R.id.date)
         private var conLay: ConstraintLayout = itemView.findViewById(R.id.conLay)
 
         fun bind(event: Event) {
@@ -39,11 +35,11 @@ class EventAdapter(
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
                 EventCategory.GLOBAL ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventGlobal))
-                EventCategory.LGB ->
+                EventCategory.LBG ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
-            // TODO: Строки с плейсхолдерами в ресурсах
-            time.text = "${EventsProvider.formatDate(event.date)} ${EventsProvider.formatTime(event.date)}"
+            time.text = CalFormatter.timef(event.date)
+            date.text = CalFormatter.datef(event.date)
         }
     }
 
@@ -51,7 +47,7 @@ class EventAdapter(
         return EventViewHolder(
             LayoutInflater
                 .from(context)
-                .inflate(R.layout.event_card, parent, false)
+                .inflate(R.layout.card_event, parent, false)
         )
     }
 

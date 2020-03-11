@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -15,36 +18,53 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.startActivityForResult
 
-class HomeFragment : Fragment() {
+class EventsFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var eventsViewModel: EventsViewModel
 
+    lateinit var recycleAdapter: EventAdapter
+    lateinit var swipeContainer: SwipeRefreshLayout
+
+    companion object {
+        lateinit var homeFragment: EventsFragment
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        eventsViewModel =
+            ViewModelProviders.of(this).get(EventsViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
-        val recyclerAdapter = EventAdapter(root.context)
-        recyclerView.adapter = recyclerAdapter
-        val swipeContainer: SwipeRefreshLayout = root.findViewById(R.id.swipeContainer)
+        recycleAdapter = EventAdapter(root.context)
+        recyclerView.adapter = recycleAdapter
+        swipeContainer = root.findViewById(R.id.swipeContainer)
+        homeFragment = this
 
         recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy <= 0) {
                     if (activity is MainActivity) {
                         (activity as MainActivity).showFAB()
+                        (activity as MainActivity).headerMain.text =
+                            recyclerView.findChildViewUnder(0F, 0F)
+                                ?.findViewById<TextView>(R.id.date)
+                                ?.text
                     }
                 } else {
                     if (activity is MainActivity) {
                         (activity as MainActivity).hideFAB()
+                        (activity as MainActivity).headerMain.text =
+                            recyclerView.findChildViewUnder(0F, 0F)
+                                ?.findViewById<TextView>(R.id.date)
+                                ?.text
                     }
                 }
             }
@@ -52,13 +72,7 @@ class HomeFragment : Fragment() {
 
         // Перезагрузка списка при свайпе вниз
         swipeContainer.setOnRefreshListener {
-            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                EventsProvider.reload()
-                withContext(Dispatchers.Main) {
-                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
-                }
-                swipeContainer.isRefreshing = false
-            }
+            reload()
         }
         if (container != null) {
             swipeContainer.setColorSchemeColors(
@@ -70,21 +84,15 @@ class HomeFragment : Fragment() {
 
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
-            swipeContainer.isRefreshing = true
-            CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-                EventsProvider.reload()
-                withContext(Dispatchers.Main) {
-                    recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
-                    swipeContainer.isRefreshing = false
-                }
-            }
+            reload()
         }
         else {
-            recyclerAdapter.update(EventsProvider.getAllAvaiableEvents())
+            recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
         }
 
         if (activity is MainActivity) {
            (activity as MainActivity).apply {
+               headerMain.text = recyclerView.findChildViewUnder(0F, 0F)?.findViewById<TextView>(R.id.date)?.text
                showFAB()
                findViewById<View>(R.id.floatingActionButton).setOnClickListener {
                    startActivityForResult<CreateEventActivity>(1)
@@ -93,5 +101,16 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+    
+    fun reload() {
+        swipeContainer.isRefreshing = true
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
+            EventsProvider.reload()
+            withContext(Dispatchers.Main) {
+                recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
+            }
+            swipeContainer.isRefreshing = false
+        }
     }
 }

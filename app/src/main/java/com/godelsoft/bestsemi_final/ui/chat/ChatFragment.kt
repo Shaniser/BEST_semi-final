@@ -49,6 +49,7 @@ class ChatFragment : Fragment() {
         }
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
+            (activity as MainActivity).headerMain.text = ""
         }
         return root
     }

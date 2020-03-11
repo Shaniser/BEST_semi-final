@@ -12,14 +12,14 @@ object EventsProvider {
 
     // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
     suspend fun reload(): String? {
-//        allEvents.clear() // TODO: Temporary disabled
+//        allEvents.clear()
         delay(2000)
         // TODO: Загрузка данных из firebase
         if (!isDataLoaded) {
             allEvents.addAll(
                 listOf(
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 2, 10, 8, 30)
                         },
@@ -30,18 +30,18 @@ object EventsProvider {
                         null
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 3, 10, 8, 30)
                         },
                         "Guy in the mirror",
                         "Math",
                         "Lectures aaat 8 AM are defenitly illegal :(",
-                        EventCategory.LGB,
+                        EventCategory.LBG,
                         null
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2021, 3, 10, 8, 30)
                         },
@@ -52,7 +52,7 @@ object EventsProvider {
                         null
                     ),
                     Event(
-                        2L,
+                        "2L",
                         Calendar.getInstance().also {
                             it.set(2020, 3, 10, 4, 21)
                         },
@@ -63,7 +63,7 @@ object EventsProvider {
                         true
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 4, 10, 8, 30)
                         },
@@ -113,38 +113,5 @@ object EventsProvider {
     // Возвращает все события по фильтру в порядке возрастания
     fun getEventsByFilter(filter: (Event) -> Boolean) : List<Event> {
         return allEvents.filter(filter).sortedBy { it.date }
-    }
-
-
-    // Формирует строку с датой
-    fun formatDate(c: Calendar): String {
-        val day= {day: Int ->
-            if (day < 10) "0$day" else "$day"
-        } (c.get(Calendar.DAY_OF_MONTH))
-        val month = {month: Int ->
-            if (month < 10) "0$month" else "$month"
-        } (c.get(Calendar.MONTH) + 1)
-        val year = {year: Int ->
-            if (year != Calendar.getInstance().get(Calendar.YEAR))
-                (year % 100).toString()
-            else
-                ""
-        } (c.get(Calendar.YEAR))
-        return "$day.$month${if (year != "") ".$year" else ""}"
-    }
-
-    // Формирует строку со временем
-    fun formatTime(c: Calendar): String {
-        val hours= c.get(Calendar.HOUR_OF_DAY).toString()
-        val minutes = {month: Int ->
-            if (month < 10) "0$month" else "$month"
-        } (c.get(Calendar.MINUTE))
-        return "$hours:$minutes"
-    }
-
-    fun getCalendarFromDate(d: Date): Calendar {
-        return Calendar.getInstance().also {
-            it.time = d // TODO: check this
-        }
     }
 }
