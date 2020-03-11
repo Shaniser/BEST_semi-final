@@ -41,7 +41,7 @@ class ChatActivity : AppCompatActivity() {
                 FirestoreUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
 
             send.setOnClickListener {
-                if (editText_message.text.toString() != "") {
+                if (!editText_message.text.toString().isBlank()) {
                     val messageToSend =
                         TextMessage(
                             editText_message.text.toString(), Calendar.getInstance().time,

@@ -12,14 +12,14 @@ object EventsProvider {
 
     // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
     suspend fun reload(): String? {
-//        allEvents.clear() // TODO: Temporary disabled
+//        allEvents.clear()
         delay(2000)
         // TODO: Загрузка данных из firebase
         if (!isDataLoaded) {
             allEvents.addAll(
                 listOf(
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 2, 10, 8, 30)
                         },
@@ -30,18 +30,18 @@ object EventsProvider {
                         null
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 3, 10, 8, 30)
                         },
                         "Guy in the mirror",
                         "Math",
                         "Lectures aaat 8 AM are defenitly illegal :(",
-                        EventCategory.LGB,
+                        EventCategory.LBG,
                         null
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2021, 3, 10, 8, 30)
                         },
@@ -52,7 +52,7 @@ object EventsProvider {
                         null
                     ),
                     Event(
-                        2L,
+                        "2L",
                         Calendar.getInstance().also {
                             it.set(2020, 3, 10, 4, 21)
                         },
@@ -63,7 +63,7 @@ object EventsProvider {
                         true
                     ),
                     Event(
-                        1L,
+                        "1L",
                         Calendar.getInstance().also {
                             it.set(2020, 4, 10, 8, 30)
                         },

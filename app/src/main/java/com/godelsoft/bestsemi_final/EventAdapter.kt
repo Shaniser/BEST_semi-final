@@ -23,7 +23,6 @@ class EventAdapter(
         private var sender: TextView = itemView.findViewById(R.id.sender)
         private var categoryColor: View = itemView.findViewById(R.id.categoryColor)
         private var time: TextView = itemView.findViewById(R.id.time)
-        private var conLay: ConstraintLayout = itemView.findViewById(R.id.conLay)
 
         fun bind(event: Event) {
             header.text = event.header
@@ -34,7 +33,7 @@ class EventAdapter(
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
                 EventCategory.GLOBAL ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventGlobal))
-                EventCategory.LGB ->
+                EventCategory.LBG ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
             time.text = "${CalFormatter.datef(event.date)} ${CalFormatter.timef(event.date)}"

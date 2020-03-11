@@ -5,11 +5,11 @@ import java.util.*
 
 
 enum class EventCategory {
-    LGB, GLOBAL, PERSONAL
+    LBG, GLOBAL, PERSONAL
 }
 
 data class Event(
-    var id:             Long,           // ID события
+    var id:             String,         // ID события
     var date:           Calendar,       // Дата и время (Без учёта секунд)
     var sender:         String,         // Автор события
     var header:         String,         // Заголовок
