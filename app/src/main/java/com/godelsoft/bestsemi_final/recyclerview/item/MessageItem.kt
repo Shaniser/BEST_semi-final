@@ -2,7 +2,6 @@ package com.godelsoft.bestsemi_final.recyclerview.item
 
 import android.view.Gravity
 import android.widget.FrameLayout
-import com.godelsoft.bestsemi_final.EventsProvider
 import com.godelsoft.bestsemi_final.model.Message
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.firebase.auth.FirebaseAuth

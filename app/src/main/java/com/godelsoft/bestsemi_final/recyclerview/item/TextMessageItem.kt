@@ -1,15 +1,10 @@
 package com.godelsoft.bestsemi_final.recyclerview.item
 
 import android.content.Context
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import android.view.Gravity
-import android.widget.FrameLayout
 import com.godelsoft.bestsemi_final.R
 import com.godelsoft.bestsemi_final.model.TextMessage
-import com.godelsoft.bestsemi_final.util.CalFormatter
-import com.google.firebase.auth.FirebaseAuth
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.card_text_message.*
-import org.jetbrains.anko.wrapContent
 
 
 class TextMessageItem(
