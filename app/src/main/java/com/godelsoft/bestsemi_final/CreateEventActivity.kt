@@ -68,7 +68,7 @@ class CreateEventActivity : AppCompatActivity() {
                         getString(R.string.empty_event_date),
                         Toast.LENGTH_SHORT
                     ).show();
-                } else if (nameEdit.text.toString() == "" || bodyEdit.text.toString() == "") {
+                } else if (nameEdit.text.toString().isBlank() || bodyEdit.text.toString().isBlank()) {
                     Toast.makeText(
                         applicationContext,
                         getString(R.string.empty_event_body),

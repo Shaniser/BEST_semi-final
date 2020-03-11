@@ -8,6 +8,7 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
+    <!--TODO: Заменить поцензурнее цвета событий-->
     <color name="colorEventInactive">#453E3E</color>
     <color name="colorEventPersonal">#8FD582</color>
     <color name="colorEventGlobal">#E8CA32</color>
