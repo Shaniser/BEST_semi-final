@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="48dp"
-            android:text="Имя Собеседника"
+            android:text="Companion's name"
             android:textColor="@color/colorPrimaryText"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
