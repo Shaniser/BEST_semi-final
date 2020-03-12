@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.startActivity
+import java.lang.Exception
 import java.util.*
 
 
@@ -88,8 +89,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     it.filterDate = choosedDate
                 }
+                EventsFilter.filter = f
                 EventsFragment.homeFragment.applyFilter(f)
-                CalendarFragment.calendarFragment.applyFilter(f)
+                try {
+                    CalendarFragment.calendarFragment.applyFilter(f)
+                } catch (e: Exception) {} // Рукалицо...
                 popUp.visibility = View.GONE
             }
         }

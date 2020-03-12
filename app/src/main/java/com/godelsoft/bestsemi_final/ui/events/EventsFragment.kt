@@ -133,18 +133,15 @@ class EventsFragment : Fragment() {
         swipeContainer.isRefreshing = true
         EventsProvider.reload {
             recycleAdapter.update(EventsProvider.getEventsByFilter {
-                curFilter.checkCategory(it.event.category) &&
-                        curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                EventsFilter.filter.checkCategory(it.event.category) &&
+                        EventsFilter.filter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
             })
             swipeContainer.isRefreshing = false
         }
     }
 
     fun applyFilter(f: EventsFilter?) {
-        if (f == null)
-            curFilter = EventsFilter()
-        else
-            curFilter = f
+        curFilter = f ?: EventsFilter()
         recycleAdapter.update(EventsProvider.getEventsByFilter {
             curFilter.checkCategory(it.event.category) &&
                     curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))

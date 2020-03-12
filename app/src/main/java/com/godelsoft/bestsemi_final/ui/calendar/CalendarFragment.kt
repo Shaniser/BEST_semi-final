@@ -108,7 +108,13 @@ class CalendarFragment : Fragment() {
             reload()
         }
         else {
-            recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+            recycleAdapter.update(EventsProvider.getEventsByFilter {
+                EventsFilter().also { ef ->
+                    ef.dateType = EventsFilterDateType.DATE
+                    ef.filterDate = curSelectedDate
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                        curFilter.checkCategory(it.event.category)
+            })
         }
 
         if (activity is MainActivity) {
@@ -125,7 +131,7 @@ class CalendarFragment : Fragment() {
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = Calendar.getInstance()
                 }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                        curFilter.checkCategory(it.event.category)
+                        EventsFilter.filter.checkCategory(it.event.category)
             })
         }
     }
@@ -153,10 +159,7 @@ class CalendarFragment : Fragment() {
     }
 
     fun applyFilter(f: EventsFilter?) {
-        if (f == null)
-            curFilter = EventsFilter()
-        else
-            curFilter = f
+        curFilter = f ?: EventsFilter()
         recycleAdapter.update(EventsProvider.getEventsByFilter {
             EventsFilter().also { ef ->
                 ef.dateType = EventsFilterDateType.DATE

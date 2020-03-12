@@ -116,47 +116,59 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Create new event"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <CheckBox
                 android:id="@+id/checkBoxLBG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="8dp"
                 android:checked="true"
                 android:text="@string/filter_checkbox_lbg"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxGlobal" />
 
             <CheckBox
                 android:id="@+id/checkBoxGlobal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:checked="true"
                 android:text="@string/filter_checkbox_global"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxLBG" />
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxPersonal" />
 
             <CheckBox
                 android:id="@+id/checkBoxPersonal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:checked="true"
                 android:text="@string/filter_checkbox_personal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxGlobal" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <RadioGroup
                 android:id="@+id/radioGroupFilterDate"
                 android:layout_width="142dp"
                 android:layout_height="128dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxPersonal">
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxLBG">
 
                 <RadioButton
                     android:id="@+id/radioAllDays"
@@ -216,17 +228,17 @@
             <Button
                 android:id="@+id/buttonChooseDate"
                 style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
+                android:layout_width="111dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="312dp"
+                android:layout_marginEnd="24dp"
                 android:enabled="false"
                 android:text="@string/filter_choose_day"
                 android:textAllCaps="true"
                 android:textColor="@color/colorIcons"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroupFilterDate" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

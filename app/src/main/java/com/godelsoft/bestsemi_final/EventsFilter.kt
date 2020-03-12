@@ -33,4 +33,8 @@ class EventsFilter {
             EventsFilterDateType.DATE -> CalFormatter.checkDaysEq(filterDate, cal)
         }
     }
+
+    companion object {
+        var filter: EventsFilter = EventsFilter()
+    }
 }
