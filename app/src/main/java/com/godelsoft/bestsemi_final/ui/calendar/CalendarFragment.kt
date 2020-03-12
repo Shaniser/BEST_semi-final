@@ -62,7 +62,7 @@ class CalendarFragment : Fragment() {
                         i: Int,
                         i1: Int
                     ) {
-                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                     }
 
                     override fun onTransitionChange(
@@ -76,9 +76,9 @@ class CalendarFragment : Fragment() {
                     override fun onTransitionCompleted(motionLayout: MotionLayout, i: Int) {
                         if (motionLayout.currentState == R.id.end) {
                             recycleView.setScrollEnable(true)
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
                         } else {
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                         }
 
                     }
