@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_my_account.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.toast
 import java.io.ByteArrayOutputStream
 
 class MyAccountActivity : AppCompatActivity() {
