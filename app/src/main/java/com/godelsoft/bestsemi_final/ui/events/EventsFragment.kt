@@ -59,10 +59,13 @@ class EventsFragment : Fragment() {
                         val tdate = recyclerView.findChildViewUnder(0F, 0F)
                             ?.findViewById<TextView>(R.id.date)
                             ?.text
+                            ?.split(".")
                         if (tdate != null) {
                             val c = Calendar.getInstance()
-                            c.set(Calendar.MONTH, tdate.split(".")[1].toInt() - 1)
-                            c.set(Calendar.DAY_OF_MONTH, tdate.split(".")[0].toInt())
+                            if (tdate.size == 3)
+                                c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
+                            c.set(Calendar.MONTH, tdate[1].toInt() - 1)
+                            c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
                                 Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
@@ -74,14 +77,16 @@ class EventsFragment : Fragment() {
                         val tdate = recyclerView.findChildViewUnder(0F, 0F)
                             ?.findViewById<TextView>(R.id.date)
                             ?.text
+                            ?.split(".")
                         if (tdate != null) {
                             val c = Calendar.getInstance()
-                            c.set(Calendar.MONTH, tdate.split(".")[1].toInt() - 1)
-                            c.set(Calendar.DAY_OF_MONTH, tdate.split(".")[0].toInt())
+                            if (tdate.size == 3)
+                                c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
+                            c.set(Calendar.MONTH, tdate[1].toInt() - 1)
+                            c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                Calendar.MONTH, 2, Locale("en", "RU")
-                            )} ${c.get(Calendar.YEAR)}"
+                                Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
                         }
                     }
                 }
@@ -105,7 +110,10 @@ class EventsFragment : Fragment() {
             reload()
         }
         else {
-            recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+            recycleAdapter.update(EventsProvider.getEventsByFilter {
+                curFilter.checkCategory(it.event.category) &&
+                        curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+            })
         }
 
         if (activity is MainActivity) {
@@ -126,7 +134,10 @@ class EventsFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
             EventsProvider.reload()
             withContext(Dispatchers.Main) {
-                recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+                recycleAdapter.update(EventsProvider.getEventsByFilter {
+                    curFilter.checkCategory(it.event.category) &&
+                            curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                })
             }
             swipeContainer.isRefreshing = false
         }

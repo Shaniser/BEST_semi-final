@@ -10,12 +10,28 @@ import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.godelsoft.bestsemi_final.MainActivity
-import com.godelsoft.bestsemi_final.R
-import com.godelsoft.bestsemi_final.StopableRecycleView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.godelsoft.bestsemi_final.*
+import com.godelsoft.bestsemi_final.ui.events.EventsFragment
+import com.godelsoft.bestsemi_final.ui.events.EventsViewModel
+import com.godelsoft.bestsemi_final.util.CalFormatter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class CalendarFragment : Fragment() {
+
+    lateinit var recycleAdapter: EventAdapter
+    private lateinit var calendarView: CalendarView
+
+    companion object {
+        lateinit var calendarFragment: CalendarFragment
+    }
+
+    var curFilter = EventsFilter()
 
     private lateinit var calendarViewModel: CalendarViewModel
 
@@ -27,10 +43,15 @@ class CalendarFragment : Fragment() {
         calendarViewModel =
                 ViewModelProviders.of(this).get(CalendarViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_calendar, container, false)
+
         root.apply {
             val recycleView = findViewById<StopableRecycleView>(R.id.recycleView)
-            val calendarView = findViewById<CalendarView>(R.id.calendarView)
+            calendarView = findViewById<CalendarView>(R.id.calendarView)
             val currentDate = findViewById<TextView>(R.id.currentDate)
+
+            recycleView.layoutManager = LinearLayoutManager(root.context)
+            recycleAdapter = EventAdapter(root.context)
+            recycleView.adapter = recycleAdapter
 
             if (root is MotionLayout) {
                 root.setTransitionListener(object : MotionLayout.TransitionListener {
@@ -67,29 +88,66 @@ class CalendarFragment : Fragment() {
 
             var c: Calendar = Calendar.getInstance()
             c.timeInMillis = calendarView.date
+            setDate()
 
             var location = Calendar.getAvailableLocales()
 
-            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, c.get(Calendar.MONTH), Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
 
 
 
             calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 c.set(Calendar.MONTH, month)
+                c.set(Calendar.YEAR, year)
+                setDate(c)
                 currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} $year"
             }
 
 
         }
 
+        // Инициализировать список событий
+        if (EventsProvider.needsReload()) {
+            reload()
+        }
+        else {
+            recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+        }
+
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
         }
-
-
-
-
         return root
+    }
+
+    fun reload() {
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
+            EventsProvider.reload()
+            withContext(Dispatchers.Main) {
+                recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+            }
+        }
+    }
+
+    fun setDate(calendar: Calendar) {
+        recycleAdapter.update(EventsProvider.getEventsByFilter {
+            EventsFilter().also { ef ->
+                ef.dateType = EventsFilterDateType.DATE
+                ef.filterDate = calendar
+            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+        })
+    }
+
+    fun setDate() {
+        val c: Calendar = Calendar.getInstance()
+        c.timeInMillis = calendarView.date
+        setDate(c)
+    }
+
+    override fun onResume() {
+        setDate()
+        super.onResume()
     }
 }
