@@ -70,7 +70,7 @@ object FirestoreUtil {
             }
     }
 
-    fun addSearchUsersListener(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
+    fun addSearchUsersListener(context: Context, sstr: String, onListen: (List<Item>) -> Unit): ListenerRegistration {
         return firestoreInstance.collection("users")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
@@ -81,13 +81,14 @@ object FirestoreUtil {
                 val items = mutableListOf<Item>()
                 querySnapshot!!.documents.forEach {
                     firestoreInstance.collection("users")
-                        .document(it.id).get().addOnSuccessListener {
-                            it["name"].toString() // TODO
+                        .document(it.id).get().addOnSuccessListener { e ->
+                            val name = e["name"].toString().toLowerCase()
+                            if (it.id != FirebaseAuth.getInstance().currentUser?.uid &&
+                                    name.contains(sstr.toLowerCase()))
+                                items.add(PersonItem(it.toObject(User::class.java)!!, it.id, context))
+                            onListen(items)
                         }
-                    if (it.id != FirebaseAuth.getInstance().currentUser?.uid)
-                        items.add(PersonItem(it.toObject(User::class.java)!!, it.id, context))
                 }
-                onListen(items)
             }
     }
 

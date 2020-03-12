@@ -45,7 +45,8 @@ class ChatFragment : Fragment() {
         if (container != null) {
             this.container = container
             userListenerRegistration =
-                FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
+//                FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
+                FirestoreUtil.addSearchUsersListener(container.context, "Role", this::updateRecyclerView)
         }
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
