@@ -29,6 +29,8 @@ class MyAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
 
+        LBGStatus.visibility = View.GONE
+
         findViewById<View>(R.id.conLay).apply {
             back.setOnClickListener {
                 onBackPressed()
@@ -71,9 +73,7 @@ class MyAccountActivity : AppCompatActivity() {
             if (!isDestroyed) {
                 editText_name.setText(user.name)
                 editText_bio.setText(user.bio)
-                // TODO:
-                // textView_role.setText( ... )
-                // user.role - роль
+                if (user.role == Role.LBG) LBGStatus.visibility = View.VISIBLE
                 if (!pictureJustChanged && user.profilePicture != null)
                     GlideApp.with(this)
                         .load(StorageUtil.pathToReference(user.profilePicture))
