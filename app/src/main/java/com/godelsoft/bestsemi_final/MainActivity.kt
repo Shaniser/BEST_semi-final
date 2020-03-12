@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
@@ -25,6 +26,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var floatingActionButton: View
     private var isFABActive = false
+    lateinit var headerConLay: ConstraintLayout
     lateinit var headerMain: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.container).apply {
             popUp.visibility = View.GONE
             headerMain = header
+            headerConLay = headerConLayout
+
             filter.setOnClickListener {
                 popUp.visibility = View.VISIBLE
             }
