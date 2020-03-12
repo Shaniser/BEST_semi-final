@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BEST semi-final</string>
+    <string name="app_name">BEST</string>
     <string name="title_home">События</string>
     <string name="title_dashboard">Календарь</string>
     <string name="title_chat">Чат</string>
