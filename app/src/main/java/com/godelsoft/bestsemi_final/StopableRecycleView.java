@@ -2,6 +2,7 @@ package com.godelsoft.bestsemi_final;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ public class StopableRecycleView extends RecyclerView {
     public StopableRecycleView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
 
     @Override
     public boolean canScrollVertically(int direction) {
