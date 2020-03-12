@@ -14,9 +14,10 @@ data class RawEvent(
     var header:         String,         // Заголовок
     var body:           String,         // Комментарий
     var category:       EventCategory,  // Категория события (область видимости)
+    val personalId:     String?,        //
     var isSubscribed:   Boolean?        // Подписан ли на событие (или null, если оно обязательно)
 ) {
-    constructor(): this(Date(0), "", "", "", EventCategory.GLOBAL, null)
+    constructor(): this(Date(0), "", "", "", EventCategory.GLOBAL, null,null)
 
     fun cal(): Calendar {
         return CalFormatter.getCalendarFromDate(date)

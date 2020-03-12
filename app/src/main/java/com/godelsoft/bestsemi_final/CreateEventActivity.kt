@@ -10,6 +10,7 @@ import com.godelsoft.bestsemi_final.model.Event
 import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -107,6 +108,7 @@ class CreateEventActivity : AppCompatActivity() {
                                         radioLBG.isChecked -> EventCategory.LBG
                                         else -> EventCategory.PERSONAL
                                     },
+                                    FirebaseAuth.getInstance().currentUser?.uid,
                                     null
                                 )
                             )
