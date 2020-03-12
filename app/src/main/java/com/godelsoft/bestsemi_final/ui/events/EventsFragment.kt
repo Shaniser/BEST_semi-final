@@ -150,6 +150,7 @@ class EventsFragment : Fragment() {
             searchLine.visibility = View.GONE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.VISIBLE
+            searchLine.clearFocus()
         }
         return root
     }
