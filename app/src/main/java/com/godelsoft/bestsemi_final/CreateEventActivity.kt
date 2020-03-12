@@ -95,7 +95,7 @@ class CreateEventActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                         EventsProvider.addEvent(
                             Event(
-                                "1L", // TODO: Id
+                                "1L",
                                 RawEvent(
                                     date.time,
                                     currentUser.name,
