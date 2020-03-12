@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.godelsoft.bestsemi_final.*
+import com.godelsoft.bestsemi_final.util.CalFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -123,7 +124,8 @@ class EventsFragment : Fragment() {
         else
             curFilter = f
         recycleAdapter.update(EventsProvider.getEventsByFilter {
-            curFilter.checkCategory(it.category) && curFilter.checkDate(it.date)
+            curFilter.checkCategory(it.event.category) &&
+                    curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
         })
     }
 }
