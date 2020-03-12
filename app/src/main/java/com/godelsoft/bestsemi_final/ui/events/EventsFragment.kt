@@ -68,9 +68,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
+                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                    Calendar.MONTH, 2, Locale(lang, "RU")
                                 )} ${c.get(Calendar.YEAR)}"
                         }
                     }
@@ -87,9 +88,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
+                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                    Calendar.MONTH, 2, Locale(lang, "RU")
                                 )} ${c.get(Calendar.YEAR)}"
                         }
                     }
