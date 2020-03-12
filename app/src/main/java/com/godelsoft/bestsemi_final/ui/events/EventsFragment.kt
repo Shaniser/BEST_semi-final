@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.startActivityForResult
+import java.util.*
 
 
 class EventsFragment : Fragment() {
@@ -55,18 +56,33 @@ class EventsFragment : Fragment() {
                 if (dy <= 0) {
                     if (activity is MainActivity) {
                         (activity as MainActivity).showFAB()
-                        (activity as MainActivity).headerMain.text =
-                            recyclerView.findChildViewUnder(0F, 0F)
-                                ?.findViewById<TextView>(R.id.date)
-                                ?.text
+                        val tdate = recyclerView.findChildViewUnder(0F, 0F)
+                            ?.findViewById<TextView>(R.id.date)
+                            ?.text
+                        if (tdate != null) {
+                            val c = Calendar.getInstance()
+                            c.set(Calendar.MONTH, tdate.split(".")[1].toInt() - 1)
+                            c.set(Calendar.DAY_OF_MONTH, tdate.split(".")[0].toInt())
+                            (activity as MainActivity).headerMain.text =
+                                "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
+                                Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+                        }
                     }
                 } else {
                     if (activity is MainActivity) {
                         (activity as MainActivity).hideFAB()
-                        (activity as MainActivity).headerMain.text =
-                            recyclerView.findChildViewUnder(0F, 0F)
-                                ?.findViewById<TextView>(R.id.date)
-                                ?.text
+                        val tdate = recyclerView.findChildViewUnder(0F, 0F)
+                            ?.findViewById<TextView>(R.id.date)
+                            ?.text
+                        if (tdate != null) {
+                            val c = Calendar.getInstance()
+                            c.set(Calendar.MONTH, tdate.split(".")[1].toInt() - 1)
+                            c.set(Calendar.DAY_OF_MONTH, tdate.split(".")[0].toInt())
+                            (activity as MainActivity).headerMain.text =
+                                "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
+                                Calendar.MONTH, 2, Locale("en", "RU")
+                            )} ${c.get(Calendar.YEAR)}"
+                        }
                     }
                 }
             }
