@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BEST semi-final</string>
+    <string name="app_name">BEST</string>
     <string name="title_home">События</string>
     <string name="title_dashboard">Календарь</string>
     <string name="title_chat">Чат</string>
@@ -33,7 +33,7 @@
     <string name="signout">Выйти</string>
     <string name="save">Сохранить</string>
     <string name="lbg_member">Участник LBG</string>
-    <string name="send_givelbg_to_share_role">Напишите в чате !giveLBG, чтобы поделиться ролью LBG участика</string>
+    <string name="send_givelbg_to_share_role">Напишите в чате !giveLBG, чтобы поделиться ролью LBG с участиком</string>
     <string name="sing_in">АВТОРИЗАЦИЯ</string>
     <string name="back">Назад</string>
     <string name="apply">Применить</string>
