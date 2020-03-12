@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -127,6 +128,10 @@ class EventsFragment : Fragment() {
                     startActivityForResult<CreateEventActivity>(1)
                 }
             }
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.VISIBLE
         }
         return root
     }

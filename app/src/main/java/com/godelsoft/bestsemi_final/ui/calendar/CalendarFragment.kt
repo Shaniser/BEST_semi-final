@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -128,6 +129,10 @@ class CalendarFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.GONE
         }
         return root
     }

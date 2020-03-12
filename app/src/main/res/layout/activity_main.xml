@@ -29,6 +29,19 @@
             app:srcCompat="@drawable/ic_filter_list_36px" />
 
         <ImageButton
+            android:id="@+id/search"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/account"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search_36px"
+            tools:visibility="gone" />
+
+        <ImageButton
             android:id="@+id/account"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
@@ -109,7 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/conLay"
