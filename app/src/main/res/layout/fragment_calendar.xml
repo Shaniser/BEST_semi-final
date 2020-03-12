@@ -18,7 +18,7 @@
         android:id="@+id/currentDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Текущая дата"
+        android:text="@string/cur_date"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryText"
         android:textSize="14sp"

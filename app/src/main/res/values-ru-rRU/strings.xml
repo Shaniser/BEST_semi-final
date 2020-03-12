@@ -22,4 +22,10 @@
     <string name="pick_time">Выберете время</string>
     <string name="personal">Личное</string>
     <string name="global">Общее</string>
+    <string name="companions_name">Имя собеседника</string>
+    <string name="name">Имя</string>
+    <string name="status">Статус</string>
+    <string name="signout">Выйти</string>
+    <string name="save">Сохранить</string>
+    <string name="cur_date">Текущая дата</string>
 </resources>

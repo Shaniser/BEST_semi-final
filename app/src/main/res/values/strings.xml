@@ -21,5 +21,11 @@
     <string name="pick_time">Pick time</string>
     <string name="personal">Personal</string>
     <string name="global">Global</string>
+    <string name="companions_name">Companion\'s name</string>
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="signout">Sign out</string>
+    <string name="save">Save</string>
+    <string name="cur_date">Current date</string>
 
 </resources>
