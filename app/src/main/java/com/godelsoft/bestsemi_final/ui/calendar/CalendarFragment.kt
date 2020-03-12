@@ -8,6 +8,7 @@ import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,6 +62,7 @@ class CalendarFragment : Fragment() {
                         i: Int,
                         i1: Int
                     ) {
+                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                     }
 
                     override fun onTransitionChange(
@@ -72,7 +74,13 @@ class CalendarFragment : Fragment() {
                     }
 
                     override fun onTransitionCompleted(motionLayout: MotionLayout, i: Int) {
-                        recycleView.setScrollEnable(motionLayout.currentState == R.id.end)
+                        if (motionLayout.currentState == R.id.end) {
+                            recycleView.setScrollEnable(true)
+                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
+                        } else {
+                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+                        }
+
                     }
                     override fun onTransitionTrigger(
                         motionLayout: MotionLayout,
