@@ -4,7 +4,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -20,12 +21,9 @@ import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_create_event.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.activity_main.view.back
 import org.jetbrains.anko.startActivity
-import java.lang.Exception
 import java.util.*
 
 
@@ -59,19 +57,28 @@ class MainActivity : AppCompatActivity() {
             headerConLay = headerConLayout
 
             filter.setOnClickListener {
-//                if (currentUser.role != Role.LBG)
-//                    radioLBG.isEnabled = false
                 popUp.visibility = View.VISIBLE
             }
             account.setOnClickListener {
                 startActivity<MyAccountActivity>()
             }
-            search.visibility = View.GONE
             nameSearch.visibility = View.GONE
-            search.setOnClickListener{
-                val sstr = nameSearch.text.toString()
-                ChatFragment.chatFragment.extUpdateRecycler(sstr)
-            }
+            nameSearch.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {}
+                override fun beforeTextChanged(
+                    s: CharSequence, start: Int,
+                    count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    s: CharSequence, start: Int,
+                    before: Int, count: Int
+                ) {
+                    val sstr = nameSearch.text.toString()
+                    ChatFragment.chatFragment.extUpdateRecycler(sstr)
+                }
+            })
         }
 
         radioGroupFilterDate.setOnCheckedChangeListener { _, _ ->

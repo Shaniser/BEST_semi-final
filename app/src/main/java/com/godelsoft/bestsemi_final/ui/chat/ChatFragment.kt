@@ -55,8 +55,6 @@ class ChatFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
-            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
-            search.visibility = View.VISIBLE
             var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
             searchLine.visibility = View.VISIBLE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
