@@ -2,6 +2,7 @@ package com.godelsoft.bestsemi_final
 
 import com.godelsoft.bestsemi_final.model.Event
 import com.godelsoft.bestsemi_final.util.EventUtil
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 
@@ -17,9 +18,14 @@ object EventsProvider {
     }
 
     fun reload(callback: () -> Unit) {
+        allEvents.clear()
         if (!isDataLoaded) {
             EventUtil.getEvents { events ->
-                allEvents = events
+                events.forEach {
+                    if (it.event.category != EventCategory.PERSONAL ||
+                        it.event.personalId == FirebaseAuth.getInstance().currentUser?.uid)
+                            allEvents.add(it)
+                }
                 callback()
             }
         }
