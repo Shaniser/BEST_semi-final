@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BEST semi-final</string>
+    <string name="title_home">События</string>
+    <string name="title_dashboard">Календарь</string>
+    <string name="title_chat">Чат</string>
+    <string name="preferences_button_title">Настройки</string>
+    <string name="Filter_button_title">Фильтры</string>
+    <string name="new_event_button_titlev">Новое событие</string>
+    <string name="category_personal_name">Личное</string>
+    <string name="category_global_name">Общее</string>
+    <string name="category_lbg_name">LBG</string>
+    <string name="hello_blank_fragment">Начальный фрагмент</string>
+    <string name="your_message">Ваше сообщение</string>
+    <string name="unknown_user">Неизвестно</string>
+    <string name="empty_event_body">Установить сначала заголовок и тело сообщения</string>
+    <string name="empty_event_date">Установить сначала дату и время</string>
+</resources>
