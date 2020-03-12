@@ -70,20 +70,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Personal" />
+            android:text="Personal"
+            android:textAllCaps="true"
+            android:textColor="@color/colorEventPersonal"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioGlobal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Global"
+            android:textAllCaps="true"
+            android:textColor="@color/colorEventGlobal"
+            android:textStyle="bold"
             tools:visibility="visible" />
 
         <RadioButton
             android:id="@+id/radioLBG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LBG" />
+            android:text="LBG"
+            android:textAllCaps="true"
+            android:textColor="@color/colorEventLGB"
+            android:textStyle="bold" />
     </RadioGroup>
 
     <Button

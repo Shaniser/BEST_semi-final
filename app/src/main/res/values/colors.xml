@@ -8,11 +8,10 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
-    <!--TODO: Заменить поцензурнее цвета событий-->
-    <color name="colorEventInactive">#453E3E</color>
-    <color name="colorEventPersonal">#8FD582</color>
-    <color name="colorEventGlobal">#E8CA32</color>
-    <color name="colorEventLGB">#CF3030</color>
+    <color name="colorEventInactive">@android:color/darker_gray</color>
+    <color name="colorEventPersonal">@android:color/holo_green_light</color>
+    <color name="colorEventGlobal">@android:color/holo_orange_light</color>
+    <color name="colorEventLGB">@android:color/holo_purple</color>
     <color name="bg">#FAFAFA</color>
 
 
