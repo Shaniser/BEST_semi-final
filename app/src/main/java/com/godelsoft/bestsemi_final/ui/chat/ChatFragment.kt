@@ -65,7 +65,14 @@ class ChatFragment : Fragment() {
 
     fun extUpdateRecycler(sstr: String) {
         userListenerRegistration =
-            FirestoreUtil.addSearchUsersListener(container.context, sstr, this::updateRecyclerView)
+            FirestoreUtil.addSearchUsersListener(
+                container.context,
+                sstr
+            ) { list: List<Pair<Item, Boolean>> ->
+                val existList = list.filter { it.second }.map { it.first }.toMutableList()
+                existList.addAll(list.filter { !it.second }.map { it.first })
+                updateRecyclerView(existList)
+            }
     }
 
     override fun onDestroy() {

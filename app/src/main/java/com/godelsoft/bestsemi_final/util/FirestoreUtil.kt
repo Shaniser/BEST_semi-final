@@ -70,7 +70,7 @@ object FirestoreUtil {
             }
     }
 
-    fun addSearchUsersListener(context: Context, sstr: String, onListen: (List<Item>) -> Unit): ListenerRegistration {
+    fun addSearchUsersListener(context: Context, sstr: String, onListen: (List<Pair<Item, Boolean>>) -> Unit): ListenerRegistration {
         return firestoreInstance.collection("users")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
@@ -78,15 +78,31 @@ object FirestoreUtil {
                     return@addSnapshotListener
                 }
 
-                val items = mutableListOf<Item>()
+                val items = mutableListOf<Pair<Item, Boolean>>()
+                var counter = querySnapshot!!.documents.count()
                 querySnapshot!!.documents.forEach {
                     firestoreInstance.collection("users")
-                        .document(it.id).get().addOnSuccessListener { e ->
-                            val name = e["name"].toString().toLowerCase()
-                            if (it.id != FirebaseAuth.getInstance().currentUser?.uid &&
-                                    name.contains(sstr.toLowerCase()))
-                                items.add(PersonItem(it.toObject(User::class.java)!!, it.id, context))
-                            onListen(items)
+                        .document(it.id).get().addOnSuccessListener { user ->
+                            currentUserDocRef.collection("engagedChatChannels")
+                                .document(it.id).get().addOnSuccessListener { chat ->
+                                    val name = user["name"].toString().toLowerCase()
+                                    if (it.id != FirebaseAuth.getInstance().currentUser?.uid &&
+                                        name.contains(sstr.toLowerCase())
+                                    )
+                                        items.add(
+                                            Pair<Item, Boolean>(
+                                                PersonItem(
+                                                    it.toObject(User::class.java)!!,
+                                                    it.id,
+                                                    context
+                                                ),
+                                                chat.exists()
+                                            )
+                                        )
+                                    counter--
+                                    if (counter == 0)
+                                        onListen(items)
+                                }
                         }
                 }
             }
