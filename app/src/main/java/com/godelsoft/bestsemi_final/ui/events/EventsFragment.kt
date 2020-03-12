@@ -34,7 +34,7 @@ class EventsFragment : Fragment() {
     }
 
     var curFilter = EventsFilter()
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -131,14 +131,11 @@ class EventsFragment : Fragment() {
 
     fun reload() {
         swipeContainer.isRefreshing = true
-        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-            EventsProvider.reload()
-            withContext(Dispatchers.Main) {
-                recycleAdapter.update(EventsProvider.getEventsByFilter {
-                    curFilter.checkCategory(it.event.category) &&
-                            curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
-                })
-            }
+        EventsProvider.reload {
+            recycleAdapter.update(EventsProvider.getEventsByFilter {
+                curFilter.checkCategory(it.event.category) &&
+                        curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+            })
             swipeContainer.isRefreshing = false
         }
     }

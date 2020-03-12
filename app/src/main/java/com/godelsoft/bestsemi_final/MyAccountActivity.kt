@@ -29,6 +29,8 @@ class MyAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
 
+        LBGStatus.visibility = View.GONE
+
         findViewById<View>(R.id.conLay).apply {
             back.setOnClickListener {
                 onBackPressed()
@@ -55,8 +57,7 @@ class MyAccountActivity : AppCompatActivity() {
                         editText_name.text.toString(),
                         editText_bio.text.toString(), null
                     )
-                toast("Saving")
-                //finish()
+                finish()
             }
 
             btn_sign_out.setOnClickListener {
@@ -72,6 +73,7 @@ class MyAccountActivity : AppCompatActivity() {
             if (!isDestroyed) {
                 editText_name.setText(user.name)
                 editText_bio.setText(user.bio)
+                if (user.role == Role.LBG) LBGStatus.visibility = View.VISIBLE
                 if (!pictureJustChanged && user.profilePicture != null)
                     GlideApp.with(this)
                         .load(StorageUtil.pathToReference(user.profilePicture))

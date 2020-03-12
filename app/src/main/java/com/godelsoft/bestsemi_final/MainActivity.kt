@@ -10,8 +10,10 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,6 +26,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var floatingActionButton: View
     private var isFABActive = false
+    lateinit var headerConLay: ConstraintLayout
     lateinit var headerMain: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +40,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.container).apply {
             popUp.visibility = View.GONE
             headerMain = header
+            headerConLay = headerConLayout
+
             filter.setOnClickListener {
                 popUp.visibility = View.VISIBLE
             }
-            account.setOnClickListener{
+            account.setOnClickListener {
                 startActivity<MyAccountActivity>()
             }
         }
@@ -70,11 +75,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         popUp.apply {
-            back.setOnClickListener{
+            back.setOnClickListener {
                 popUp.visibility = View.GONE
             }
-            apply.setOnClickListener{
-                EventsFragment.homeFragment.applyFilter(EventsFilter().also {
+            apply.setOnClickListener {
+                val f = EventsFilter().also {
                     it.showLBG = checkBoxLBG.isChecked
                     it.showGlobal = checkBoxGlobal.isChecked
                     it.showPersonal = checkBoxPersonal.isChecked
@@ -86,7 +91,9 @@ class MainActivity : AppCompatActivity() {
                         else -> EventsFilterDateType.ALL
                     }
                     it.filterDate = choosedDate
-                })
+                }
+                EventsFragment.homeFragment.applyFilter(f)
+                CalendarFragment.calendarFragment.applyFilter(f)
                 popUp.visibility = View.GONE
             }
         }
