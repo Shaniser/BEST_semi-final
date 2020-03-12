@@ -16,6 +16,7 @@ import com.godelsoft.bestsemi_final.ChatActivity
 import com.godelsoft.bestsemi_final.MainActivity
 import com.godelsoft.bestsemi_final.R
 import com.godelsoft.bestsemi_final.recyclerview.item.PersonItem
+import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
@@ -27,14 +28,14 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 class ChatFragment : Fragment() {
 
     private lateinit var chatViewModel: ChatViewModel
-
     private lateinit var userListenerRegistration: ListenerRegistration
-
     private var shouldInitRecyclerView = true
-
     private lateinit var container: ViewGroup
-
     private lateinit var peopleSection: Section
+
+    companion object {
+        lateinit var chatFragment: ChatFragment
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -44,11 +45,12 @@ class ChatFragment : Fragment() {
         chatViewModel =
                 ViewModelProviders.of(this).get(ChatViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_chat, container, false)
+        chatFragment = this
         if (container != null) {
             this.container = container
             userListenerRegistration =
-//                FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
-                FirestoreUtil.addSearchUsersListener(container.context, "Role", this::updateRecyclerView)
+                FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
+//                FirestoreUtil.addSearchUsersListener(container.context, "Role", this::updateRecyclerView)
         }
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
@@ -61,6 +63,11 @@ class ChatFragment : Fragment() {
             filter.visibility = View.GONE
         }
         return root
+    }
+
+    fun extUpdateRecycler(sstr: String) {
+        userListenerRegistration =
+            FirestoreUtil.addSearchUsersListener(container.context, sstr, this::updateRecyclerView)
     }
 
     override fun onDestroy() {

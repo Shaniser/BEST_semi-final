@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
+import com.godelsoft.bestsemi_final.ui.chat.ChatFragment
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
@@ -68,7 +69,8 @@ class MainActivity : AppCompatActivity() {
             search.visibility = View.GONE
             nameSearch.visibility = View.GONE
             search.setOnClickListener{
-                //TODO - поиск
+                val sstr = nameSearch.text.toString()
+                ChatFragment.chatFragment.extUpdateRecycler(sstr)
             }
         }
 
