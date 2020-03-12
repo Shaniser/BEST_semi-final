@@ -30,7 +30,16 @@ class SignInActivity : AppCompatActivity() {
         val intent = AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(signInProviders)
             .build()
+
         startActivityForResult(intent, signIn)
+
+        singIn.setOnClickListener {
+            val intent1 = AuthUI.getInstance().createSignInIntentBuilder()
+                .setAvailableProviders(signInProviders)
+                .build()
+
+            startActivityForResult(intent1, signIn)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

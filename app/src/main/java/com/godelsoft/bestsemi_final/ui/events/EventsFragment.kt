@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -66,10 +67,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
-                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                Calendar.MONTH, 2, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
+                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                )} ${c.get(Calendar.YEAR)}"
                         }
                     }
                 } else {
@@ -85,10 +86,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
-                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                Calendar.MONTH, 2, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
+                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                )} ${c.get(Calendar.YEAR)}"
                         }
                     }
                 }
@@ -104,14 +105,14 @@ class EventsFragment : Fragment() {
                 ContextCompat.getColor(
                     container.context,
                     R.color.colorAccent
-                ))
+                )
+            )
         };
 
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
             reload()
-        }
-        else {
+        } else {
             recycleAdapter.update(EventsProvider.getEventsByFilter {
                 curFilter.checkCategory(it.event.category) &&
                         curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
@@ -119,15 +120,19 @@ class EventsFragment : Fragment() {
         }
 
         if (activity is MainActivity) {
-           (activity as MainActivity).apply {
-               headerMain.text = recyclerView.findChildViewUnder(0F, 0F)?.findViewById<TextView>(R.id.date)?.text
-               showFAB()
-               findViewById<View>(R.id.floatingActionButton).setOnClickListener {
-                   startActivityForResult<CreateEventActivity>(1)
-               }
-           }
+            (activity as MainActivity).apply {
+                headerMain.text =
+                    recyclerView.findChildViewUnder(0F, 0F)?.findViewById<TextView>(R.id.date)?.text
+                showFAB()
+                findViewById<View>(R.id.floatingActionButton).setOnClickListener {
+                    startActivityForResult<CreateEventActivity>(1)
+                }
+            }
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.VISIBLE
         }
-
         return root
     }
 
@@ -135,18 +140,15 @@ class EventsFragment : Fragment() {
         swipeContainer.isRefreshing = true
         EventsProvider.reload {
             recycleAdapter.update(EventsProvider.getEventsByFilter {
-                curFilter.checkCategory(it.event.category) &&
-                        curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                EventsFilter.filter.checkCategory(it.event.category) &&
+                        EventsFilter.filter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
             })
             swipeContainer.isRefreshing = false
         }
     }
 
     fun applyFilter(f: EventsFilter?) {
-        if (f == null)
-            curFilter = EventsFilter()
-        else
-            curFilter = f
+        curFilter = f ?: EventsFilter()
         recycleAdapter.update(EventsProvider.getEventsByFilter {
             curFilter.checkCategory(it.event.category) &&
                     curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))

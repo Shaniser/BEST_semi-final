@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -62,7 +63,7 @@ class CalendarFragment : Fragment() {
                         i: Int,
                         i1: Int
                     ) {
-                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                     }
 
                     override fun onTransitionChange(
@@ -76,9 +77,9 @@ class CalendarFragment : Fragment() {
                     override fun onTransitionCompleted(motionLayout: MotionLayout, i: Int) {
                         if (motionLayout.currentState == R.id.end) {
                             recycleView.setScrollEnable(true)
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
                         } else {
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                         }
 
                     }
@@ -118,12 +119,22 @@ class CalendarFragment : Fragment() {
             reload()
         }
         else {
-            recycleAdapter.update(EventsProvider.getAllAvailableEvents())
+            recycleAdapter.update(EventsProvider.getEventsByFilter {
+                EventsFilter().also { ef ->
+                    ef.dateType = EventsFilterDateType.DATE
+                    ef.filterDate = curSelectedDate
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                        curFilter.checkCategory(it.event.category)
+            })
         }
 
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.GONE
         }
         return root
     }
@@ -135,7 +146,7 @@ class CalendarFragment : Fragment() {
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = Calendar.getInstance()
                 }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                        curFilter.checkCategory(it.event.category)
+                        EventsFilter.filter.checkCategory(it.event.category)
             })
         }
     }
@@ -163,10 +174,7 @@ class CalendarFragment : Fragment() {
     }
 
     fun applyFilter(f: EventsFilter?) {
-        if (f == null)
-            curFilter = EventsFilter()
-        else
-            curFilter = f
+        curFilter = f ?: EventsFilter()
         recycleAdapter.update(EventsProvider.getEventsByFilter {
             EventsFilter().also { ef ->
                 ef.dateType = EventsFilterDateType.DATE
