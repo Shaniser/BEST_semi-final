@@ -22,5 +22,7 @@
     <string name="filter_cur_week">Current week</string>
     <string name="filter_selected_day">Select day</string>
     <string name="filter_choose_day">Pick date</string>
+    <string name="lbg_member">LBG MEMBER</string>
+    <string name="send_givelbg_to_share_role">Send !giveLBG to share role</string>
 
 </resources>
