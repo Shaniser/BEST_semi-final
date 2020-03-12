@@ -70,6 +70,27 @@ object FirestoreUtil {
             }
     }
 
+    fun addSearchUsersListener(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
+        return firestoreInstance.collection("users")
+            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException != null) {
+                    Log.e("FIRESTORE", "Users listener error.", firebaseFirestoreException)
+                    return@addSnapshotListener
+                }
+
+                val items = mutableListOf<Item>()
+                querySnapshot!!.documents.forEach {
+                    firestoreInstance.collection("users")
+                        .document(it.id).get().addOnSuccessListener {
+                            it["name"].toString() // TODO
+                        }
+                    if (it.id != FirebaseAuth.getInstance().currentUser?.uid)
+                        items.add(PersonItem(it.toObject(User::class.java)!!, it.id, context))
+                }
+                onListen(items)
+            }
+    }
+
     fun removeListener(registration: ListenerRegistration) = registration.remove()
 
     fun giveLBGRole(otherUserId: String) {
