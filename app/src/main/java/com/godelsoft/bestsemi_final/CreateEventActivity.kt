@@ -31,6 +31,10 @@ class CreateEventActivity : AppCompatActivity() {
 
         FirestoreUtil.getCurrentUser {
             currentUser = it
+            if (currentUser.role == Role.LBG) {
+                radioGlobal.isEnabled = true
+                radioLBG.isEnabled = true
+            }
         }
 
         dateButton.setOnClickListener {

@@ -8,7 +8,7 @@ enum class EventsFilterDateType { ALL, TODAY, WEEK, DATE }
 class EventsFilter {
     var showPersonal: Boolean = true
     var showGlobal: Boolean = true
-    var showLBG: Boolean = true
+    var showLBG: Boolean = false
 
     var dateType = EventsFilterDateType.ALL
     var filterDate = Calendar.getInstance()
@@ -32,5 +32,9 @@ class EventsFilter {
             }
             EventsFilterDateType.DATE -> CalFormatter.checkDaysEq(filterDate, cal)
         }
+    }
+
+    companion object {
+        var filter: EventsFilter = EventsFilter()
     }
 }
