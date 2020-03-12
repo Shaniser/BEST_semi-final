@@ -13,7 +13,9 @@ import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import android.util.Log
+import com.godelsoft.bestsemi_final.service.MyFirebaseInstanceIDService
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class SignInActivity : AppCompatActivity() {
@@ -44,6 +46,10 @@ class SignInActivity : AppCompatActivity() {
                 val progressDialog = indeterminateProgressDialog("Setting up your account")
                 FirestoreUtil.initCurrentUserIfFirstTime {
                     startActivity(intentFor<MainActivity>().newTask().clearTask())
+
+                    val registrationToken = FirebaseInstanceId.getInstance().token
+                    MyFirebaseInstanceIDService.addTokenToFirestore(registrationToken)
+
                     progressDialog.dismiss()
                 }
             }

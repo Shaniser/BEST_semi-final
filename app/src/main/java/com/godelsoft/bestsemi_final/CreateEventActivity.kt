@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity() {
-    var isSaving = false
+    private var isSaving = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
