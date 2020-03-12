@@ -100,14 +100,16 @@ class CalendarFragment : Fragment() {
 
             var location = Calendar.getAvailableLocales()
 
-            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
+            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
 
             calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 c.set(Calendar.MONTH, month)
                 c.set(Calendar.YEAR, year)
                 setDate(c)
-                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} $year"
+                val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
+                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} $year"
             }
         }
 
