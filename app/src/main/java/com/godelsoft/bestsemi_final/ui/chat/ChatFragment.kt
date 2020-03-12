@@ -47,11 +47,6 @@ class ChatFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_chat, container, false)
         chatFragment = this
         if (container != null) {
-            this.container = container
-            userListenerRegistration =
-                FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
-//                FirestoreUtil.addSearchUsersListener(container.context, "Role", this::updateRecyclerView)
-        }
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
@@ -59,6 +54,12 @@ class ChatFragment : Fragment() {
             searchLine.visibility = View.VISIBLE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.GONE
+        }
+        if (container != null) {
+            this.container = container
+            userListenerRegistration =
+                FirestoreUtil.addSearchUsersListener(container.context, "@@@!@!!@@!@@@") { _ -> }
+            //FirestoreUtil.addUsersListener(container.context, this::updateRecyclerView)
         }
         return root
     }
@@ -68,10 +69,8 @@ class ChatFragment : Fragment() {
             FirestoreUtil.addSearchUsersListener(
                 container.context,
                 sstr
-            ) { list: List<Pair<Item, Boolean>> ->
-                val existList = list.filter { it.second }.map { it.first }.toMutableList()
-                existList.addAll(list.filter { !it.second }.map { it.first })
-                updateRecyclerView(existList)
+            ) { list: List<Pair<Item, Int>> ->
+                updateRecyclerView(list.sortedBy { it.second }.map { it.first }.reversed())
             }
     }
 

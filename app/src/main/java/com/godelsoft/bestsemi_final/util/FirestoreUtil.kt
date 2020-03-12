@@ -12,10 +12,10 @@ import java.lang.NullPointerException
 import com.godelsoft.bestsemi_final.recyclerview.item.PersonItem
 import com.godelsoft.bestsemi_final.recyclerview.item.TextMessageItem
 import com.google.firebase.firestore.ListenerRegistration
-import com.xwray.groupie.kotlinandroidextensions.Item
+    import com.xwray.groupie.kotlinandroidextensions.Item
 
 
-object FirestoreUtil {
+    object FirestoreUtil {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     private val currentUserDocRef: DocumentReference
@@ -53,7 +53,7 @@ object FirestoreUtil {
             }
     }
 
-    fun addUsersListener(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
+    fun addUsersListener1(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
         return firestoreInstance.collection("users")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
@@ -70,38 +70,41 @@ object FirestoreUtil {
             }
     }
 
-    fun addSearchUsersListener(context: Context, sstr: String, onListen: (List<Pair<Item, Boolean>>) -> Unit): ListenerRegistration {
+    fun addSearchUsersListener(context: Context, sstr: String, onListen: (List<Pair<Item, Int>>) -> Unit): ListenerRegistration {
         return firestoreInstance.collection("users")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
                     Log.e("FIRESTORE", "Users listener error.", firebaseFirestoreException)
-                    return@addSnapshotListener
+                        //return@addSnapshotListener
                 }
 
-                val items = mutableListOf<Pair<Item, Boolean>>()
+                val items = mutableListOf<Pair<Item, Int>>()
                 var counter = querySnapshot!!.documents.count()
-                querySnapshot!!.documents.forEach {
+                querySnapshot.documents.forEach {
                     firestoreInstance.collection("users")
                         .document(it.id).get().addOnSuccessListener { user ->
                             currentUserDocRef.collection("engagedChatChannels")
                                 .document(it.id).get().addOnSuccessListener { chat ->
                                     val name = user["name"].toString().toLowerCase()
                                     if (it.id != FirebaseAuth.getInstance().currentUser?.uid &&
-                                        name.contains(sstr.toLowerCase())
-                                    )
-                                        items.add(
-                                            Pair<Item, Boolean>(
-                                                PersonItem(
-                                                    it.toObject(User::class.java)!!,
-                                                    it.id,
-                                                    context
-                                                ),
-                                                chat.exists()
-                                            )
-                                        )
-                                    counter--
-                                    if (counter == 0)
-                                        onListen(items)
+                                        name.contains(sstr.toLowerCase()))
+
+                                        if (chat.exists()) {
+                                            firestoreInstance.collection("chatChannels/${chat["channelId"].toString()}/messages")
+                                                .get().addOnSuccessListener { v ->
+                                                items.add(
+                                                    Pair<Item, Int>(
+                                                        PersonItem(
+                                                            it.toObject(User::class.java)!!,
+                                                            it.id,
+                                                            context
+                                                        ), v.size()
+                                                    )
+                                                )
+                                                onListen(items)
+                                            }
+                                        }
+
                                 }
                         }
                 }
