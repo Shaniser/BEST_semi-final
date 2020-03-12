@@ -2,6 +2,7 @@ package com.godelsoft.bestsemi_final.util
 
 import android.content.Context
 import android.util.Log
+import com.godelsoft.bestsemi_final.Role
 import com.godelsoft.bestsemi_final.model.*
 import com.godelsoft.bestsemi_final.recyclerview.item.ImageMessageItem
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +28,7 @@ object FirestoreUtil {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
                 val newUser = User(FirebaseAuth.getInstance().currentUser?.displayName ?: "",
-                    "", null, mutableListOf())
+                    "", Role.VISITOR, null, mutableListOf())
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
                 }
@@ -70,6 +71,14 @@ object FirestoreUtil {
     }
 
     fun removeListener(registration: ListenerRegistration) = registration.remove()
+
+    fun giveLBGRole(otherUserId: String) {
+        if (otherUserId == FirebaseAuth.getInstance().currentUser!!.uid) {
+            return
+        }
+
+        firestoreInstance.document("users/$otherUserId").update(mapOf("role" to Role.LBG))
+    }
 
     fun getOrCreateChatChannel(otherUserId: String, onComplete: (channelId: String) -> Unit) {
         currentUserDocRef.collection("engagedChatChannels")

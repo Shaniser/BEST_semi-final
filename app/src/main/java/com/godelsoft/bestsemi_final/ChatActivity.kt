@@ -60,13 +60,19 @@ class ChatActivity : AppCompatActivity() {
 
             send.setOnClickListener {
                 if (!editText_message.text.toString().isBlank()) {
-                    val messageToSend =
-                        TextMessage(
-                            editText_message.text.toString(), Calendar.getInstance().time,
-                            FirebaseAuth.getInstance().currentUser!!.uid,
-                            otherUserId, currentUser.name)
-                    editText_message.setText("")
-                    FirestoreUtil.sendMessage(messageToSend, channelId)
+                    if (currentUser.role == Role.LBG && editText_message.text.toString() == "!giveLBG") {
+                        editText_message.setText("")
+                        FirestoreUtil.giveLBGRole(otherUserId)
+                    } else {
+                        val messageToSend =
+                            TextMessage(
+                                editText_message.text.toString(), Calendar.getInstance().time,
+                                FirebaseAuth.getInstance().currentUser!!.uid,
+                                otherUserId, currentUser.name
+                            )
+                        editText_message.setText("")
+                        FirestoreUtil.sendMessage(messageToSend, channelId)
+                    }
                 }
             }
 

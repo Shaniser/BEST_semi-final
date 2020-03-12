@@ -72,6 +72,9 @@ class MyAccountActivity : AppCompatActivity() {
             if (!isDestroyed) {
                 editText_name.setText(user.name)
                 editText_bio.setText(user.bio)
+                // TODO:
+                // textView_role.setText( ... )
+                // user.role - роль
                 if (!pictureJustChanged && user.profilePicture != null)
                     GlideApp.with(this)
                         .load(StorageUtil.pathToReference(user.profilePicture))
