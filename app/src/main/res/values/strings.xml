@@ -14,5 +14,13 @@
     <string name="unknown_user">Unknown</string>
     <string name="empty_event_body">Set header and body first</string>
     <string name="empty_event_date">Set time and date first</string>
+    <string name="filter_checkbox_lbg">Show LBG events</string>
+    <string name="filter_checkbox_global">Show global events</string>
+    <string name="filter_checkbox_personal">Show personal events</string>
+    <string name="filter_radio_all">All</string>
+    <string name="filter_events_cur_day">Only today</string>
+    <string name="filter_cur_week">Current week</string>
+    <string name="filter_selected_day">Select day</string>
+    <string name="filter_choose_day">Pick date</string>
 
 </resources>
