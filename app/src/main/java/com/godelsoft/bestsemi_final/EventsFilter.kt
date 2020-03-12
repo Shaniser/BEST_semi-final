@@ -3,7 +3,7 @@ package com.godelsoft.bestsemi_final
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import java.util.*
 
-enum class EventsFilterDateType { ALL, TODAY, WEEK, DATE }
+enum class EventsFilterDateType { ALL, TODAY, WEEK, DATE, FUTURE }
 
 class EventsFilter {
     var showPersonal: Boolean = true
@@ -31,6 +31,7 @@ class EventsFilter {
                 today.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
             }
             EventsFilterDateType.DATE -> CalFormatter.checkDaysEq(filterDate, cal)
+            EventsFilterDateType.FUTURE -> today.before(cal)
         }
     }
 
