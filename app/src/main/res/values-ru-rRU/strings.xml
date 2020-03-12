@@ -12,7 +12,14 @@
     <string name="category_lbg_name">LBG</string>
     <string name="hello_blank_fragment">Начальный фрагмент</string>
     <string name="your_message">Ваше сообщение</string>
-    <string name="unknown_user">Неизвестно</string>
-    <string name="empty_event_body">Установить сначала заголовок и тело сообщения</string>
-    <string name="empty_event_date">Установить сначала дату и время</string>
+    <string name="unknown_user">Неизвестный</string>
+    <string name="empty_event_body">Сначала установите заголовок и тело сообщения</string>
+    <string name="empty_event_date">Сначала установите дату и время</string>
+    <string name="body">Содержание</string>
+    <string name="header">Заголовок</string>
+    <string name="create_new_event">Новое событие</string>
+    <string name="pick_date">Выберете дату</string>
+    <string name="pick_time">Выберете время</string>
+    <string name="personal">Личное</string>
+    <string name="global">Общее</string>
 </resources>

@@ -14,5 +14,12 @@
     <string name="unknown_user">Unknown</string>
     <string name="empty_event_body">Set header and body first</string>
     <string name="empty_event_date">Set time and date first</string>
+    <string name="body">Body</string>
+    <string name="header">Header</string>
+    <string name="create_new_event">Create new event</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="personal">Personal</string>
+    <string name="global">Global</string>
 
 </resources>
