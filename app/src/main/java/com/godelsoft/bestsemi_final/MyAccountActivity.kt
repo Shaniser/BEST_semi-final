@@ -40,18 +40,22 @@ class MyAccountActivity : AppCompatActivity() {
                     action = Intent.ACTION_GET_CONTENT
                     putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
                 }
-                startActivityForResult(Intent.createChooser(intent,"SelectImage"), selectImage)
+                startActivityForResult(Intent.createChooser(intent, "SelectImage"), selectImage)
             }
 
             btn_save.setOnClickListener {
                 if (::selectedImageBytes.isInitialized)
                     StorageUtil.uploadProfilePhoto(selectedImageBytes) { imagePath ->
-                        FirestoreUtil.updateCurrentUser(editText_name.text.toString(),
-                            editText_bio.text.toString(), imagePath)
+                        FirestoreUtil.updateCurrentUser(
+                            editText_name.text.toString(),
+                            editText_bio.text.toString(), imagePath
+                        )
                     }
                 else
-                    FirestoreUtil.updateCurrentUser(editText_name.text.toString(),
-                        editText_bio.text.toString(), null)
+                    FirestoreUtil.updateCurrentUser(
+                        editText_name.text.toString(),
+                        editText_bio.text.toString(), null
+                    )
                 toast("Saving")
                 //finish()
             }
@@ -66,6 +70,7 @@ class MyAccountActivity : AppCompatActivity() {
         }
 
         FirestoreUtil.getCurrentUser { user ->
+            if (!isDestroyed) {
                 editText_name.setText(user.name)
                 editText_bio.setText(user.bio)
                 if (!pictureJustChanged && user.profilePicture != null)
@@ -73,13 +78,15 @@ class MyAccountActivity : AppCompatActivity() {
                         .load(StorageUtil.pathToReference(user.profilePicture))
                         .placeholder(R.drawable.ic_account_circle_black_24dp)
                         .into(imageView_profile)
+            }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == selectImage && resultCode == Activity.RESULT_OK &&
-            data != null && data.data != null) {
+            data != null && data.data != null
+        ) {
             val selectedImagePath = data.data
             val selectedImageBmp = MediaStore.Images.Media
                 .getBitmap(contentResolver, selectedImagePath)
