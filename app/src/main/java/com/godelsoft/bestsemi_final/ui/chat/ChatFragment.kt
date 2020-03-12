@@ -76,10 +76,12 @@ class ChatFragment : Fragment() {
 
         fun updateItems() = peopleSection.update(items)
 
-        if (shouldInitRecyclerView)
-            init()
-        else
-            updateItems()
+        if (isVisible) {
+            if (shouldInitRecyclerView)
+                init()
+            else
+                updateItems()
+        }
     }
 
     private val onItemClick = OnItemClickListener {item, view ->

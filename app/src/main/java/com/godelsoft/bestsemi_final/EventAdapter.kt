@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
+import com.godelsoft.bestsemi_final.model.Event
 import com.godelsoft.bestsemi_final.util.CalFormatter
 
 
@@ -27,10 +28,10 @@ class EventAdapter(
         private var conLay: ConstraintLayout = itemView.findViewById(R.id.conLay)
 
         fun bind(event: Event) {
-            header.text = event.header
-            body.text = event.body
-            sender.text = event.sender
-            when (event.category) {
+            header.text = event.event.header
+            body.text = event.event.body
+            sender.text = event.event.sender
+            when (event.event.category) {
                 EventCategory.PERSONAL ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventPersonal))
                 EventCategory.GLOBAL ->
@@ -38,8 +39,8 @@ class EventAdapter(
                 EventCategory.LBG ->
                     categoryColor.setBackgroundColor(getColor(context, R.color.colorEventLGB))
             }
-            time.text = CalFormatter.timef(event.date)
-            date.text = CalFormatter.datef(event.date)
+            time.text = CalFormatter.timef(event.event.date)
+            date.text = CalFormatter.datef(event.event.date)
         }
     }
 

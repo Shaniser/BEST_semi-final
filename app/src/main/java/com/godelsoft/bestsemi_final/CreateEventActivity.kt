@@ -6,6 +6,7 @@ import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.godelsoft.bestsemi_final.model.Event
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_create_event.*
@@ -85,19 +86,22 @@ class CreateEventActivity : AppCompatActivity() {
                         EventsProvider.addEvent(
                             Event(
                                 "1L", // TODO: Id
-                                date,
-                                (FirebaseAuth.getInstance().currentUser?.displayName)
-                                    ?: getString(R.string.unknown_user),
-                                nameEdit.text.toString(),
-                                bodyEdit.text.toString(),
-                                when {
-                                    radioGlobal.isChecked -> EventCategory.GLOBAL
-                                    radioPersonal.isChecked -> EventCategory.PERSONAL
-                                    radioLBG.isChecked -> EventCategory.LBG
-                                    else -> EventCategory.PERSONAL
-                                },
-                                null
+                                RawEvent(
+                                    date.time,
+                                    (FirebaseAuth.getInstance().currentUser?.displayName)
+                                        ?: getString(R.string.unknown_user),
+                                    nameEdit.text.toString(),
+                                    bodyEdit.text.toString(),
+                                    when {
+                                        radioGlobal.isChecked -> EventCategory.GLOBAL
+                                        radioPersonal.isChecked -> EventCategory.PERSONAL
+                                        radioLBG.isChecked -> EventCategory.LBG
+                                        else -> EventCategory.PERSONAL
+                                    },
+                                    null
+                                )
                             )
+
                         )
                         withContext(Dispatchers.Main) {
                             setResult(Activity.RESULT_OK)
