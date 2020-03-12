@@ -26,7 +26,10 @@ object EventUtil {
     }
 
     fun addEvent(event: RawEvent) {
-        firestoreInstance.collection("events")
-            .add(event)
+        firestoreInstance.collection("events").add(event)
+    }
+
+    fun deleteEvent(id: String) {
+        firestoreInstance.document("events/$id").delete()
     }
 }
