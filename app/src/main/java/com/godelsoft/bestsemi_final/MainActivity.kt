@@ -10,20 +10,24 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.godelsoft.bestsemi_final.glide.GlideApp
 import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
 import com.godelsoft.bestsemi_final.ui.chat.ChatFragment
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.CalFormatter
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
+import com.godelsoft.bestsemi_final.util.StorageUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import java.util.*
 
 
@@ -34,21 +38,32 @@ class MainActivity : AppCompatActivity() {
     lateinit var headerMain: TextView
     private lateinit var currentUser: User
 
+    companion object {
+        lateinit var mainActivity: MainActivity
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mainActivity = this
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
-        FirestoreUtil.getCurrentUser {
-            currentUser = it
+        FirestoreUtil.getCurrentUser {user ->
+            currentUser = user
             if (currentUser.role == Role.LBG) {
                 checkBoxLBG.isEnabled = true
                 checkBoxLBG.isChecked = true
                 applyFilters(Calendar.getInstance())
             }
+            if (user.profilePicture != null)
+                GlideApp.with(this)
+                    .load(StorageUtil.pathToReference(user.profilePicture))
+                    .placeholder(R.drawable.ic_account_circle_black_24dp)
+                    .into(imageView_profile)
         }
 
         findViewById<View>(R.id.container).apply {
@@ -60,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 popUp.visibility = View.VISIBLE
             }
             account.setOnClickListener {
-                startActivity<MyAccountActivity>()
+                startActivityForResult<MyAccountActivity>(121)
             }
             nameSearch.visibility = View.GONE
             nameSearch.addTextChangedListener(object : TextWatcher {
@@ -164,6 +179,16 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             floatingActionButton.startAnimation(anim)
+        }
+    }
+
+    fun updatePhoto() {
+        FirestoreUtil.getCurrentUser { user ->
+            if (user.profilePicture != null)
+                GlideApp.with(this)
+                    .load(StorageUtil.pathToReference(user.profilePicture))
+                    .placeholder(R.drawable.ic_account_circle_36px)
+                    .into(imageView_profile)
         }
     }
 

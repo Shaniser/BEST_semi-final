@@ -50,6 +50,7 @@ class MyAccountActivity : AppCompatActivity() {
                             editText_name.text.toString(),
                             editText_bio.text.toString(), imagePath
                         )
+                        MainActivity.mainActivity.updatePhoto()
                     }
                 else
                     FirestoreUtil.updateCurrentUser(
