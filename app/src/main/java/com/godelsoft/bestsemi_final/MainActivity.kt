@@ -132,9 +132,6 @@ class MainActivity : AppCompatActivity() {
         }
         EventsFilter.filter = f
         EventsFragment.homeFragment.applyFilter(f)
-        try {
-            CalendarFragment.calendarFragment.applyFilter(f)
-        } catch (e: Exception) {} // Рукалицо...
     }
 
     fun showFAB() {
