@@ -90,7 +90,7 @@ class EventsFragment : Fragment() {
             reload()
         }
         else {
-            recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
+            recycleAdapter.update(EventsProvider.getAllAvailableEvents())
         }
 
         if (activity is MainActivity) {
@@ -111,7 +111,7 @@ class EventsFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
             EventsProvider.reload()
             withContext(Dispatchers.Main) {
-                recycleAdapter.update(EventsProvider.getAllAvaiableEvents())
+                recycleAdapter.update(EventsProvider.getAllAvailableEvents())
             }
             swipeContainer.isRefreshing = false
         }
