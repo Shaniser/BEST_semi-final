@@ -37,4 +37,5 @@
     <string name="sing_in">АВТОРИЗАЦИЯ</string>
     <string name="back">Назад</string>
     <string name="apply">Применить</string>
+    <string name="filter_radio_future">Будущие события</string>
 </resources>

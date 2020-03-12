@@ -122,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             it.showGlobal = checkBoxGlobal.isChecked
             it.showPersonal = checkBoxPersonal.isChecked
             it.dateType = when {
+                radioFuture.isChecked -> EventsFilterDateType.FUTURE
                 radioAllDays.isChecked -> EventsFilterDateType.ALL
                 radioToday.isChecked -> EventsFilterDateType.TODAY
                 radioWeek.isChecked -> EventsFilterDateType.WEEK
