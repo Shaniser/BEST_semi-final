@@ -134,7 +134,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:checked="true"
+                android:checked="false"
+                android:enabled="false"
                 android:text="@string/filter_checkbox_lbg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxGlobal" />

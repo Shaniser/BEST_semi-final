@@ -68,7 +68,8 @@ class EventsFragment : Fragment() {
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                )} ${c.get(Calendar.YEAR)}"
                         }
                     }
                 } else {
@@ -86,7 +87,8 @@ class EventsFragment : Fragment() {
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                )} ${c.get(Calendar.YEAR)}"
                         }
                     }
                 }
@@ -102,14 +104,14 @@ class EventsFragment : Fragment() {
                 ContextCompat.getColor(
                     container.context,
                     R.color.colorAccent
-                ))
+                )
+            )
         };
 
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
             reload()
-        }
-        else {
+        } else {
             recycleAdapter.update(EventsProvider.getEventsByFilter {
                 curFilter.checkCategory(it.event.category) &&
                         curFilter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
@@ -117,15 +119,15 @@ class EventsFragment : Fragment() {
         }
 
         if (activity is MainActivity) {
-           (activity as MainActivity).apply {
-               headerMain.text = recyclerView.findChildViewUnder(0F, 0F)?.findViewById<TextView>(R.id.date)?.text
-               showFAB()
-               findViewById<View>(R.id.floatingActionButton).setOnClickListener {
-                   startActivityForResult<CreateEventActivity>(1)
-               }
-           }
+            (activity as MainActivity).apply {
+                headerMain.text =
+                    recyclerView.findChildViewUnder(0F, 0F)?.findViewById<TextView>(R.id.date)?.text
+                showFAB()
+                findViewById<View>(R.id.floatingActionButton).setOnClickListener {
+                    startActivityForResult<CreateEventActivity>(1)
+                }
+            }
         }
-
         return root
     }
 

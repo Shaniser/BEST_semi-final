@@ -12,12 +12,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.util.CalFormatter
+import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_create_event.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.activity_main.view.back
 import org.jetbrains.anko.startActivity
 import java.lang.Exception
 import java.util.*
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var floatingActionButton: View
     private var isFABActive = false
     lateinit var headerMain: TextView
+    private lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +41,21 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
+        FirestoreUtil.getCurrentUser {
+            currentUser = it
+            if (currentUser.role == Role.LBG) {
+                checkBoxLBG.isEnabled = true
+                checkBoxLBG.isChecked = true
+                applyFilters(Calendar.getInstance())
+            }
+        }
+
         findViewById<View>(R.id.container).apply {
             popUp.visibility = View.GONE
             headerMain = header
             filter.setOnClickListener {
+//                if (currentUser.role != Role.LBG)
+//                    radioLBG.isEnabled = false
                 popUp.visibility = View.VISIBLE
             }
             account.setOnClickListener {
@@ -76,27 +92,31 @@ class MainActivity : AppCompatActivity() {
                 popUp.visibility = View.GONE
             }
             apply.setOnClickListener {
-                val f = EventsFilter().also {
-                    it.showLBG = checkBoxLBG.isChecked
-                    it.showGlobal = checkBoxGlobal.isChecked
-                    it.showPersonal = checkBoxPersonal.isChecked
-                    it.dateType = when {
-                        radioAllDays.isChecked -> EventsFilterDateType.ALL
-                        radioToday.isChecked -> EventsFilterDateType.TODAY
-                        radioWeek.isChecked -> EventsFilterDateType.WEEK
-                        radioSelectDay.isChecked -> EventsFilterDateType.DATE
-                        else -> EventsFilterDateType.ALL
-                    }
-                    it.filterDate = choosedDate
-                }
-                EventsFilter.filter = f
-                EventsFragment.homeFragment.applyFilter(f)
-                try {
-                    CalendarFragment.calendarFragment.applyFilter(f)
-                } catch (e: Exception) {} // Рукалицо...
+                applyFilters(choosedDate)
                 popUp.visibility = View.GONE
             }
         }
+    }
+
+    fun applyFilters(choosedDate: Calendar) {
+        val f = EventsFilter().also {
+            it.showLBG = checkBoxLBG.isChecked
+            it.showGlobal = checkBoxGlobal.isChecked
+            it.showPersonal = checkBoxPersonal.isChecked
+            it.dateType = when {
+                radioAllDays.isChecked -> EventsFilterDateType.ALL
+                radioToday.isChecked -> EventsFilterDateType.TODAY
+                radioWeek.isChecked -> EventsFilterDateType.WEEK
+                radioSelectDay.isChecked -> EventsFilterDateType.DATE
+                else -> EventsFilterDateType.ALL
+            }
+            it.filterDate = choosedDate
+        }
+        EventsFilter.filter = f
+        EventsFragment.homeFragment.applyFilter(f)
+        try {
+            CalendarFragment.calendarFragment.applyFilter(f)
+        } catch (e: Exception) {} // Рукалицо...
     }
 
     fun showFAB() {
