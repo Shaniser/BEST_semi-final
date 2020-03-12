@@ -46,7 +46,6 @@ class ChatFragment : Fragment() {
                 ViewModelProviders.of(this).get(ChatViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_chat, container, false)
         chatFragment = this
-        if (container != null) {
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
