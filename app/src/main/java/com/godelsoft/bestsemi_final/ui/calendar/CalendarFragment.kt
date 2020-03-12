@@ -32,6 +32,7 @@ class CalendarFragment : Fragment() {
     }
 
     var curFilter = EventsFilter()
+    var curSelectedDate = Calendar.getInstance()
 
     private lateinit var calendarViewModel: CalendarViewModel
 
@@ -43,7 +44,7 @@ class CalendarFragment : Fragment() {
         calendarViewModel =
                 ViewModelProviders.of(this).get(CalendarViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_calendar, container, false)
-
+        calendarFragment = this
         root.apply {
             val recycleView = findViewById<StopableRecycleView>(R.id.recycleView)
             calendarView = findViewById<CalendarView>(R.id.calendarView)
@@ -83,7 +84,6 @@ class CalendarFragment : Fragment() {
                 })
             }
 
-
             recycleView.setScrollEnable(false)
 
             var c: Calendar = Calendar.getInstance()
@@ -94,8 +94,6 @@ class CalendarFragment : Fragment() {
 
             currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
 
-
-
             calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 c.set(Calendar.MONTH, month)
@@ -103,8 +101,6 @@ class CalendarFragment : Fragment() {
                 setDate(c)
                 currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} $year"
             }
-
-
         }
 
         // Инициализировать список событий
@@ -128,17 +124,20 @@ class CalendarFragment : Fragment() {
                 EventsFilter().also { ef ->
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = Calendar.getInstance()
-                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                        curFilter.checkCategory(it.event.category)
             })
         }
     }
 
     fun setDate(calendar: Calendar) {
+        curSelectedDate = calendar
         recycleAdapter.update(EventsProvider.getEventsByFilter {
             EventsFilter().also { ef ->
                 ef.dateType = EventsFilterDateType.DATE
                 ef.filterDate = calendar
-            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                    curFilter.checkCategory(it.event.category)
         })
     }
 
@@ -151,5 +150,19 @@ class CalendarFragment : Fragment() {
     override fun onResume() {
         setDate()
         super.onResume()
+    }
+
+    fun applyFilter(f: EventsFilter?) {
+        if (f == null)
+            curFilter = EventsFilter()
+        else
+            curFilter = f
+        recycleAdapter.update(EventsProvider.getEventsByFilter {
+            EventsFilter().also { ef ->
+                ef.dateType = EventsFilterDateType.DATE
+                ef.filterDate = curSelectedDate
+            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                    curFilter.checkCategory(it.event.category)
+        })
     }
 }
