@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -53,6 +54,8 @@ class ChatFragment : Fragment() {
             (activity as MainActivity).headerMain.text = ""
             var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
             search.visibility = View.VISIBLE
+            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            searchLine.visibility = View.VISIBLE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.GONE
         }

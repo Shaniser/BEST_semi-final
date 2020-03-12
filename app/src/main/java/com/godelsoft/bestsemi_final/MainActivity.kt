@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity<MyAccountActivity>()
             }
             search.visibility = View.GONE
+            nameSearch.visibility = View.GONE
             search.setOnClickListener{
                 //TODO - поиск
             }

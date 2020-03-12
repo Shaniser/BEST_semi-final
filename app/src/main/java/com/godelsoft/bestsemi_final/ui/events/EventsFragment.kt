@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Filter
 import android.widget.ImageButton
 import android.widget.TextView
@@ -130,6 +131,8 @@ class EventsFragment : Fragment() {
             }
             var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
             search.visibility = View.GONE
+            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            searchLine.visibility = View.GONE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.VISIBLE
         }

@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -131,6 +128,8 @@ class CalendarFragment : Fragment() {
             (activity as MainActivity).headerMain.text = ""
             var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
             search.visibility = View.GONE
+            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            searchLine.visibility = View.GONE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.GONE
         }
