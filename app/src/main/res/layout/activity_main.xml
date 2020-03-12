@@ -52,6 +52,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/search"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/account"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search_36px"
+            tools:visibility="gone" />
+
+        <EditText
+            android:id="@+id/nameSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/search"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -206,7 +236,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginBottom="16dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:text="back"
+                android:text="@string/back"
                 android:textAllCaps="true"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -219,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
-                android:text="apply"
+                android:text="@string/apply"
                 android:textAllCaps="true"
                 android:textColor="@color/colorIcons"
                 android:textSize="14sp"

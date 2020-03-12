@@ -65,6 +65,11 @@ class MainActivity : AppCompatActivity() {
             account.setOnClickListener {
                 startActivity<MyAccountActivity>()
             }
+            search.visibility = View.GONE
+            nameSearch.visibility = View.GONE
+            search.setOnClickListener{
+                //TODO - поиск
+            }
         }
 
         radioGroupFilterDate.setOnCheckedChangeListener { _, _ ->

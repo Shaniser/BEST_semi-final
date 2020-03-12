@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Filter
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -81,9 +83,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
+                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                    Calendar.MONTH, 2, Locale(lang, "RU")
                                 )} ${c.get(Calendar.YEAR)}"
                         }
                     }
@@ -100,9 +103,10 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
+                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
-                                    Calendar.MONTH, 2, Locale("en", "RU")
+                                    Calendar.MONTH, 2, Locale(lang, "RU")
                                 )} ${c.get(Calendar.YEAR)}"
                         }
                     }
@@ -142,6 +146,12 @@ class EventsFragment : Fragment() {
                     startActivityForResult<CreateEventActivity>(1)
                 }
             }
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            searchLine.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.VISIBLE
         }
         return root
     }

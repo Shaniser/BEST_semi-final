@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -62,7 +60,7 @@ class CalendarFragment : Fragment() {
                         i: Int,
                         i1: Int
                     ) {
-                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                        ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                     }
 
                     override fun onTransitionChange(
@@ -76,9 +74,9 @@ class CalendarFragment : Fragment() {
                     override fun onTransitionCompleted(motionLayout: MotionLayout, i: Int) {
                         if (motionLayout.currentState == R.id.end) {
                             recycleView.setScrollEnable(true)
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 0F)
                         } else {
-                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
+//                            ViewCompat.setElevation((activity as MainActivity).headerConLay, 6F)
                         }
 
                     }
@@ -100,14 +98,16 @@ class CalendarFragment : Fragment() {
 
             var location = Calendar.getAvailableLocales()
 
-            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} ${c.get(Calendar.YEAR)}"
+            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
+            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
 
             calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 c.set(Calendar.MONTH, month)
                 c.set(Calendar.YEAR, year)
                 setDate(c)
-                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale("en", "RU"))} $year"
+                val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
+                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} $year"
             }
         }
 
@@ -128,6 +128,12 @@ class CalendarFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).hideFAB()
             (activity as MainActivity).headerMain.text = ""
+            var search = (activity as MainActivity)?.findViewById<ImageButton>(R.id.search)
+            search.visibility = View.GONE
+            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            searchLine.visibility = View.GONE
+            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            filter.visibility = View.GONE
         }
         return root
     }
