@@ -1,6 +1,5 @@
 package com.godelsoft.bestsemi_final.util
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
