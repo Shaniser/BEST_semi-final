@@ -59,8 +59,7 @@
         <OnSwipe
             app:dragDirection="dragUp"
             app:onTouchUp="autoComplete"
-            app:touchAnchorId="@id/conLay"
-            app:touchRegionId="@id/conLay" />
+            app:touchAnchorId="@id/conLay" />
         <KeyFrameSet >
             <KeyPosition
                 app:motionTarget="@+id/calendarView"
@@ -78,7 +77,6 @@
         <OnSwipe
             app:dragDirection="dragDown"
             app:onTouchUp="autoComplete"
-            app:touchAnchorId="@id/currentDate"
-            app:touchRegionId="@id/currentDate" />
+            app:touchAnchorId="@id/currentDate" />
     </Transition>
 </MotionScene>

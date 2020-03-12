@@ -55,8 +55,7 @@ class MyAccountActivity : AppCompatActivity() {
                         editText_name.text.toString(),
                         editText_bio.text.toString(), null
                     )
-                toast("Saving")
-                //finish()
+                finish()
             }
 
             btn_sign_out.setOnClickListener {
