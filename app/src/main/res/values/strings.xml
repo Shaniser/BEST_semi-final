@@ -22,5 +22,14 @@
     <string name="filter_cur_week">Current week</string>
     <string name="filter_selected_day">Select day</string>
     <string name="filter_choose_day">Pick date</string>
+    <string name="header">Header</string>
+    <string name="body">Body</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="current_date">Current date</string>
+    <string name="signout">Sign out</string>
+    <string name="save">Save</string>
 
 </resources>

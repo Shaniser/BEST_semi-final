@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BEST semi-final</string>
+    <string name="title_home">События</string>
+    <string name="title_dashboard">Календарь</string>
+    <string name="title_chat">Чат</string>
+    <string name="preferences_button_title">Настройки</string>
+    <string name="Filter_button_title">Фильтры</string>
+    <string name="new_event_button_titlev">Новое событие</string>
+    <string name="category_personal_name">Личное</string>
+    <string name="category_global_name">Общее</string>
+    <string name="category_lbg_name">LBG</string>
+    <string name="hello_blank_fragment">Начальный фрагмент</string>
+    <string name="your_message">Ваше сообщение</string>
+    <string name="unknown_user">Неизвестный</string>
+    <string name="empty_event_body">Сначала установите заголовок и содержание сообщения</string>
+    <string name="empty_event_date">Сначала установите дату и время</string>
+    <string name="filter_checkbox_lbg">Показать LBG события</string>
+    <string name="filter_checkbox_global">Показать общие события</string>
+    <string name="filter_checkbox_personal">Показать личные события</string>
+    <string name="filter_radio_all">Все</string>
+    <string name="filter_events_cur_day">Только за сегодня</string>
+    <string name="filter_cur_week">Текущая неделя</string>
+    <string name="filter_selected_day">Выбрать день</string>
+    <string name="filter_choose_day">Выбрать дату</string>
+    <string name="header">Заголовок</string>
+    <string name="body">Содержание</string>
+    <string name="pick_date">Установить дату</string>
+    <string name="pick_time">Установить время</string>
+    <string name="name">Имя</string>
+    <string name="status">Статус</string>
+    <string name="current_date">Текущая дата</string>
+    <string name="signout">Выйти</string>
+    <string name="save">Сохранить</string>
+</resources>
