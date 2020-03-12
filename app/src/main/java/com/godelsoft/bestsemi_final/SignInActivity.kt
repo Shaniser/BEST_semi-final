@@ -8,14 +8,11 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import org.jetbrains.anko.clearTask
-import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.newTask
 import android.util.Log
 import com.godelsoft.bestsemi_final.service.MyFirebaseInstanceIDService
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.google.firebase.iid.FirebaseInstanceId
+import org.jetbrains.anko.*
 
 
 class SignInActivity : AppCompatActivity() {
@@ -58,9 +55,9 @@ class SignInActivity : AppCompatActivity() {
 
                 when (response.error?.errorCode) {
                     ErrorCodes.NO_NETWORK ->
-                        Log.d("ERROR", "NO NETWORK") // TODO
+                        toast("No network")
                     ErrorCodes.UNKNOWN_ERROR ->
-                        Log.d("ERROR", "UNKNOWN ERROR") // TODO
+                        toast("Unknown error")
                 }
             }
         }

@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.godelsoft.bestsemi_final.model.Event
+import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.util.CalFormatter
-import com.google.firebase.auth.FirebaseAuth
+import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.coroutines.*
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity() {
+    private lateinit var currentUser: User
     private var isSaving = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,10 @@ class CreateEventActivity : AppCompatActivity() {
 
         back.setOnClickListener {
             onBackPressed()
+        }
+
+        FirestoreUtil.getCurrentUser {
+            currentUser = it
         }
 
         dateButton.setOnClickListener {
@@ -81,15 +87,14 @@ class CreateEventActivity : AppCompatActivity() {
                     ).show();
                 } else {
                     isSaving = true
-//                    resources.getString(R.id)
+                    //resources.getString(R.id)
                     CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
                         EventsProvider.addEvent(
                             Event(
                                 "1L", // TODO: Id
                                 RawEvent(
                                     date.time,
-                                    (FirebaseAuth.getInstance().currentUser?.displayName)
-                                        ?: getString(R.string.unknown_user),
+                                    currentUser.name,
                                     nameEdit.text.toString(),
                                     bodyEdit.text.toString(),
                                     when {

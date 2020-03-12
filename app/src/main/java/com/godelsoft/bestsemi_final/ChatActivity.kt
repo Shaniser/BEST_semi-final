@@ -6,11 +6,9 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.godelsoft.bestsemi_final.model.ImageMessage
-import com.godelsoft.bestsemi_final.model.MessageType
 import com.godelsoft.bestsemi_final.model.TextMessage
 import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
@@ -87,20 +85,16 @@ class ChatActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == selectImage && resultCode == Activity.RESULT_OK &&
                 data != null && data.data != null) {
-            Log.e("IMAGE_TEST", "TEST2")
             val selectedImagePath = data.data
 
             val selectedImageBmp = MediaStore.Images.Media
                 .getBitmap(contentResolver, selectedImagePath)
             val outputStream = ByteArrayOutputStream()
-            Log.e("IMAGE_TEST", "TEST3")
 
             selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
             val selectedImageBytes = outputStream.toByteArray()
 
-            Log.e("IMAGE_TEST", "TEST4")
             StorageUtil.uploadMessageImage(selectedImageBytes) { imagePath ->
-                Log.e("IMAGE_TEST", "TEST5")
                 val messageToSend =
                     ImageMessage(imagePath, Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid,
