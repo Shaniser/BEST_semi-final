@@ -29,9 +29,9 @@ object EventsProvider {
         reload()
     }
 
-    suspend fun deleteEvent(id: Long) {
-        delay(2000)
-        // TODO: Работа с firebase
+    fun deleteEvent(id: String) {
+        EventUtil.deleteEvent(id)
+        reload()
     }
 
     // Возвращает все события, которые пользователь в принципе может увидеть
