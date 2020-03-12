@@ -51,6 +51,7 @@
     </ConstraintSet>
 
     <Transition
+        android:id="@+id/down"
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@id/start"
         app:duration="400">
@@ -69,6 +70,7 @@
     </Transition>
 
     <Transition
+        android:id="@+id/up"
         app:constraintSetEnd="@+id/start"
         app:constraintSetStart="@id/end"
         app:duration="400">
