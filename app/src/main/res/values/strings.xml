@@ -31,5 +31,7 @@
     <string name="current_date">Current date</string>
     <string name="signout">Sign out</string>
     <string name="save">Save</string>
+    <string name="lbg_member">LBG MEMBER</string>
+    <string name="send_givelbg_to_share_role">Send !giveLBG to share role</string>
 
 </resources>

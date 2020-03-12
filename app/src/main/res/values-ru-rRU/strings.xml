@@ -32,4 +32,6 @@
     <string name="current_date">Текущая дата</string>
     <string name="signout">Выйти</string>
     <string name="save">Сохранить</string>
+    <string name="lbg_member">LBG участник</string>
+    <string name="send_givelbg_to_share_role">Напишите в чате !giveLBG, чтобы поделиться ролью LBG участика</string>
 </resources>
