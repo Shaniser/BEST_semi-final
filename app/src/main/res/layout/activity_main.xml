@@ -109,12 +109,81 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/conLay"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/checkBoxLBG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="80dp"
+                android:checked="true"
+                android:text="@string/filter_checkbox_lbg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/checkBoxGlobal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:checked="true"
+                android:text="@string/filter_checkbox_global"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxLBG" />
+
+            <CheckBox
+                android:id="@+id/checkBoxPersonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:checked="true"
+                android:text="@string/filter_checkbox_personal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxGlobal" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupFilterDate"
+                android:layout_width="142dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxPersonal">
+
+                <RadioButton
+                    android:id="@+id/radioAllDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/filter_radio_all" />
+
+                <RadioButton
+                    android:id="@+id/radioToday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_events_cur_day" />
+
+                <RadioButton
+                    android:id="@+id/radioWeek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_cur_week" />
+
+                <RadioButton
+                    android:id="@+id/radioSelectDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_selected_day" />
+
+            </RadioGroup>
 
             <Button
                 android:id="@+id/back"
@@ -142,6 +211,18 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/buttonChooseDate"
+                android:layout_width="142dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:enabled="false"
+                android:text="@string/filter_choose_day"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroupFilterDate" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

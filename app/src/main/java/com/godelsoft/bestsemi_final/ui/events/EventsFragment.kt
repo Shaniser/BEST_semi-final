@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,6 +30,8 @@ class EventsFragment : Fragment() {
     companion object {
         lateinit var homeFragment: EventsFragment
     }
+
+    var curFilter = EventsFilter()
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,7 +103,7 @@ class EventsFragment : Fragment() {
 
         return root
     }
-    
+
     fun reload() {
         swipeContainer.isRefreshing = true
         CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
@@ -110,5 +113,15 @@ class EventsFragment : Fragment() {
             }
             swipeContainer.isRefreshing = false
         }
+    }
+
+    fun applyFilter(f: EventsFilter?) {
+        if (f == null)
+            curFilter = EventsFilter()
+        else
+            curFilter = f
+        recycleAdapter.update(EventsProvider.getEventsByFilter {
+            curFilter.checkCategory(it.category) && curFilter.checkDate(it.date)
+        })
     }
 }

@@ -46,4 +46,11 @@ object CalFormatter {
             it.time = d
         }
     }
+
+    // Проверяет, представляют ли два календаря один и тот же день
+    fun checkDaysEq(c1: Calendar, c2: Calendar): Boolean {
+        return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH) &&
+                c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) &&
+                c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+    }
 }
