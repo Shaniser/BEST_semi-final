@@ -123,11 +123,13 @@ class CalendarFragment : Fragment() {
     }
 
     fun reload() {
-        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
-            EventsProvider.reload()
-            withContext(Dispatchers.Main) {
-                recycleAdapter.update(EventsProvider.getAllAvailableEvents())
-            }
+        EventsProvider.reload {
+            recycleAdapter.update(EventsProvider.getEventsByFilter {
+                EventsFilter().also { ef ->
+                    ef.dateType = EventsFilterDateType.DATE
+                    ef.filterDate = Calendar.getInstance()
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+            })
         }
     }
 

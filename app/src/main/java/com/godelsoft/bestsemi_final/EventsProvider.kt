@@ -11,15 +11,18 @@ object EventsProvider {
     private var isDataLoaded = false //Позволяет не перезагружать данные в случае, если
     fun needsReload() = !isDataLoaded
 
-    // Обновляет список и возвращает null в случае успеха, иначе - вернёт описание ошибки
-    fun reload(): String? {
+    // Обновляет список
+    fun reload() {
+        reload {}
+    }
+
+    fun reload(callback: () -> Unit) {
         if (!isDataLoaded) {
             EventUtil.getEvents { events ->
                 allEvents = events
+                callback()
             }
-            isDataLoaded = true
         }
-        return null // Ok
     }
 
     fun addEvent(event: Event) {
