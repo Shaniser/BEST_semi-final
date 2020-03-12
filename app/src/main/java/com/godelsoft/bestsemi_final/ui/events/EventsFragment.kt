@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.godelsoft.bestsemi_final.*
+import com.godelsoft.bestsemi_final.model.User
 import com.godelsoft.bestsemi_final.util.CalFormatter
+import com.godelsoft.bestsemi_final.util.FirestoreUtil
+import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +30,8 @@ import java.util.*
 class EventsFragment : Fragment() {
 
     private lateinit var eventsViewModel: EventsViewModel
+    private lateinit var currentUser: User
+    private var isUserInited = false
 
     lateinit var recycleAdapter: EventAdapter
     lateinit var swipeContainer: SwipeRefreshLayout
@@ -52,6 +57,16 @@ class EventsFragment : Fragment() {
         recyclerView.adapter = recycleAdapter
         swipeContainer = root.findViewById(R.id.swipeContainer)
         homeFragment = this
+
+        swipeContainer.isRefreshing = true
+        FirestoreUtil.getCurrentUser {
+            currentUser = it
+            isUserInited = true
+            if (currentUser.role == Role.LBG)
+                curFilter.showLBG = true
+            if (swipeContainer.isRefreshing)
+                swipeContainer.isRefreshing = false
+        }
 
         recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -148,7 +163,8 @@ class EventsFragment : Fragment() {
                 EventsFilter.filter.checkCategory(it.event.category) &&
                         EventsFilter.filter.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
             })
-            swipeContainer.isRefreshing = false
+            if (isUserInited)
+                swipeContainer.isRefreshing = false
         }
     }
 
