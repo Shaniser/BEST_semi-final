@@ -15,6 +15,7 @@ import com.godelsoft.bestsemi_final.*
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.godelsoft.bestsemi_final.ui.events.EventsViewModel
 import com.godelsoft.bestsemi_final.util.CalFormatter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -97,7 +98,7 @@ class CalendarFragment : Fragment() {
             var location = Calendar.getAvailableLocales()
 
             val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
-            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
+            currentDate.text = "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale(lang, "RU"))} ${c.get(Calendar.YEAR)}"
 
             calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -105,7 +106,7 @@ class CalendarFragment : Fragment() {
                 c.set(Calendar.YEAR, year)
                 setDate(c)
                 val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
-                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, 2, Locale(lang, "RU"))} $year"
+                currentDate.text = "$dayOfMonth ${c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale(lang, "RU"))} $year"
             }
         }
 
@@ -129,6 +130,7 @@ class CalendarFragment : Fragment() {
             searchLine.visibility = View.GONE
             var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.GONE
+            searchLine.clearFocus()
         }
         return root
     }
