@@ -12,7 +12,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.godelsoft.bestsemi_final.ui.events.EventsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.activity_main.view.popUp
 import org.jetbrains.anko.startActivity
 
 
@@ -31,12 +33,22 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         findViewById<View>(R.id.container).apply {
+            popUp.visibility = View.GONE
             headerMain = header
             filter.setOnClickListener {
-                //TODO ФИЛЬТЕР СДЕЛАЙТЕ УЖЕ ПОЖАЛУЙСТА >_<
+                popUp.visibility = View.VISIBLE
             }
             account.setOnClickListener{
                 startActivity<MyAccountActivity>()
+            }
+        }
+
+        popUp.apply {
+            back.setOnClickListener{
+                popUp.visibility = View.GONE
+            }
+            apply.setOnClickListener{
+                //TODO ФИЛЬТЕР СДЕЛАЙТЕ УЖЕ ПОЖАЛУЙСТА >_<
             }
         }
     }
