@@ -10,22 +10,19 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleX="1"
+            android:scaleY="1">
         </Constraint>
 
         <Constraint
-            android:id="@+id/currentDate"
+            android:id="@+id/conLay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customFloatValue="14"/>
-            <CustomAttribute
-                app:attributeName="textColor"
-                app:customColorValue="@color/colorPrimaryText"/>
+            app:layout_constraintTop_toBottomOf="@id/calendarView"
+            app:layout_constraintBottom_toBottomOf="parent">
         </Constraint>
     </ConstraintSet>
 
@@ -33,25 +30,23 @@
         <Constraint
             android:id="@+id/calendarView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        </Constraint>
-
-        <Constraint
-            android:id="@+id/currentDate"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customFloatValue="18"/>
-            <CustomAttribute
-                app:attributeName="textColor"
-                app:customColorValue="@color/colorPrimary"/>
+            app:layout_constraintBottom_toTopOf="@id/conLay"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleX="0.6"
+            android:scaleY="0.6">
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/conLay"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
         </Constraint>
     </ConstraintSet>
 
@@ -59,7 +54,29 @@
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@id/start"
         app:duration="400">
-        <KeyFrameSet>
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:onTouchUp="autoComplete"
+            app:touchAnchorId="@id/conLay"
+            app:touchRegionId="@id/conLay" />
+        <KeyFrameSet >
+            <KeyPosition
+                app:motionTarget="@+id/calendarView"
+                app:percentX="0.01"
+                app:percentY="0.01" />
         </KeyFrameSet>
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@+id/start"
+        app:constraintSetStart="@id/end"
+        app:duration="400">
+
+        <OnSwipe
+            app:dragDirection="dragDown"
+            app:onTouchUp="autoComplete"
+            app:touchAnchorId="@id/currentDate"
+            app:touchRegionId="@id/currentDate" />
     </Transition>
 </MotionScene>
