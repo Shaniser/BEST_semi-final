@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/conLay"
@@ -205,18 +205,25 @@
 
             <RadioGroup
                 android:id="@+id/radioGroupFilterDate"
-                android:layout_width="142dp"
-                android:layout_height="128dp"
+                android:layout_width="149dp"
+                android:layout_height="162dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBoxLBG">
 
                 <RadioButton
-                    android:id="@+id/radioAllDays"
+                    android:id="@+id/radioFuture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:text="@string/filter_radio_future" />
+
+                <RadioButton
+                    android:id="@+id/radioAllDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
                     android:text="@string/filter_radio_all" />
 
                 <RadioButton
@@ -272,8 +279,8 @@
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="111dp"
                 android:layout_height="41dp"
-                android:layout_marginTop="312dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="340dp"
+                android:layout_marginEnd="16dp"
                 android:enabled="false"
                 android:text="@string/filter_choose_day"
                 android:textAllCaps="true"

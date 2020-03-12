@@ -26,15 +26,13 @@ class CalendarFragment : Fragment() {
 
     lateinit var recycleAdapter: EventAdapter
     private lateinit var calendarView: CalendarView
+    private lateinit var calendarViewModel: CalendarViewModel
+    var curSelectedDate = Calendar.getInstance()
 
     companion object {
         lateinit var calendarFragment: CalendarFragment
     }
 
-    var curFilter = EventsFilter()
-    var curSelectedDate = Calendar.getInstance()
-
-    private lateinit var calendarViewModel: CalendarViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -121,8 +119,7 @@ class CalendarFragment : Fragment() {
                 EventsFilter().also { ef ->
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = curSelectedDate
-                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                        curFilter.checkCategory(it.event.category)
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
             })
         }
 
@@ -144,8 +141,7 @@ class CalendarFragment : Fragment() {
                 EventsFilter().also { ef ->
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = Calendar.getInstance()
-                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                        EventsFilter.filter.checkCategory(it.event.category)
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
             })
         }
     }
@@ -156,8 +152,7 @@ class CalendarFragment : Fragment() {
             EventsFilter().also { ef ->
                 ef.dateType = EventsFilterDateType.DATE
                 ef.filterDate = calendar
-            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                    curFilter.checkCategory(it.event.category)
+            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
         })
     }
 
@@ -170,16 +165,5 @@ class CalendarFragment : Fragment() {
     override fun onResume() {
         setDate()
         super.onResume()
-    }
-
-    fun applyFilter(f: EventsFilter?) {
-        curFilter = f ?: EventsFilter()
-        recycleAdapter.update(EventsProvider.getEventsByFilter {
-            EventsFilter().also { ef ->
-                ef.dateType = EventsFilterDateType.DATE
-                ef.filterDate = curSelectedDate
-            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
-                    curFilter.checkCategory(it.event.category)
-        })
     }
 }

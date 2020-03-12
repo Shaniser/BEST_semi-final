@@ -36,5 +36,6 @@
     <string name="sing_in">SING IN</string>
     <string name="back">Back</string>
     <string name="apply">Apply</string>
+    <string name="filter_radio_future">Future events</string>
 
 </resources>

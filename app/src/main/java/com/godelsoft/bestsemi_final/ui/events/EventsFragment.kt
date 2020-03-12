@@ -103,7 +103,8 @@ class EventsFragment : Fragment() {
                                 c.set(Calendar.YEAR, tdate[2].toInt() + 2000)
                             c.set(Calendar.MONTH, tdate[1].toInt() - 1)
                             c.set(Calendar.DAY_OF_MONTH, tdate[0].toInt())
-                            val lang = if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
+                            val lang =
+                                if (context?.getResources()?.getString(R.string.back) == "Back") "en" else "ru"
                             (activity as MainActivity).headerMain.text =
                                 "${c.get(Calendar.DAY_OF_MONTH)} ${c.getDisplayName(
                                     Calendar.MONTH, 2, Locale(lang, "RU")
@@ -125,7 +126,7 @@ class EventsFragment : Fragment() {
                     R.color.colorAccent
                 )
             )
-        };
+        }
 
         // Инициализировать список событий
         if (EventsProvider.needsReload()) {
@@ -146,9 +147,9 @@ class EventsFragment : Fragment() {
                     startActivityForResult<CreateEventActivity>(1)
                 }
             }
-            var searchLine = (activity as MainActivity)?.findViewById<EditText>(R.id.nameSearch)
+            val searchLine = (activity as MainActivity).findViewById<EditText>(R.id.nameSearch)
             searchLine.visibility = View.GONE
-            var filter = (activity as MainActivity)?.findViewById<ImageButton>(R.id.filter)
+            val filter = (activity as MainActivity).findViewById<ImageButton>(R.id.filter)
             filter.visibility = View.VISIBLE
             searchLine.clearFocus()
         }

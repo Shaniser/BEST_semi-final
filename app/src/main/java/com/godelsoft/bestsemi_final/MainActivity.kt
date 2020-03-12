@@ -3,6 +3,7 @@ package com.godelsoft.bestsemi_final
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         mainActivity = this
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -137,6 +139,7 @@ class MainActivity : AppCompatActivity() {
             it.showGlobal = checkBoxGlobal.isChecked
             it.showPersonal = checkBoxPersonal.isChecked
             it.dateType = when {
+                radioFuture.isChecked -> EventsFilterDateType.FUTURE
                 radioAllDays.isChecked -> EventsFilterDateType.ALL
                 radioToday.isChecked -> EventsFilterDateType.TODAY
                 radioWeek.isChecked -> EventsFilterDateType.WEEK
@@ -147,9 +150,6 @@ class MainActivity : AppCompatActivity() {
         }
         EventsFilter.filter = f
         EventsFragment.homeFragment.applyFilter(f)
-        try {
-            CalendarFragment.calendarFragment.applyFilter(f)
-        } catch (e: Exception) {} // Рукалицо...
     }
 
     fun showFAB() {

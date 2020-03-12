@@ -3,6 +3,7 @@ package com.godelsoft.bestsemi_final
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -22,6 +23,7 @@ class CreateEventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         val date = Calendar.getInstance()
         var isDateSetted = false
         var isTimeSetted = false
