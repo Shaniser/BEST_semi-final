@@ -59,7 +59,11 @@ class MainActivity : AppCompatActivity() {
             if (currentUser.role == Role.LBG) {
                 checkBoxLBG.isEnabled = true
                 checkBoxLBG.isChecked = true
+                CalendarFragment.isLBG = true
                 applyFilters(Calendar.getInstance())
+            }
+            else {
+                CalendarFragment.isLBG = false
             }
             if (user.profilePicture != null)
                 GlideApp.with(this)

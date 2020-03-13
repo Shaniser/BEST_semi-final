@@ -31,8 +31,8 @@ class CalendarFragment : Fragment() {
 
     companion object {
         lateinit var calendarFragment: CalendarFragment
+        var isLBG = false
     }
-
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -119,7 +119,10 @@ class CalendarFragment : Fragment() {
                 EventsFilter().also { ef ->
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = curSelectedDate
-                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                        EventsFilter().also { sssssu ->
+                            sssssu.showLBG = isLBG
+                        }.checkCategory(it.event.category)
             })
         }
 
@@ -141,7 +144,10 @@ class CalendarFragment : Fragment() {
                 EventsFilter().also { ef ->
                     ef.dateType = EventsFilterDateType.DATE
                     ef.filterDate = Calendar.getInstance()
-                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+                }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                        EventsFilter().also { sssssu ->
+                            sssssu.showLBG = isLBG
+                        }.checkCategory(it.event.category)
             })
         }
     }
@@ -152,7 +158,10 @@ class CalendarFragment : Fragment() {
             EventsFilter().also { ef ->
                 ef.dateType = EventsFilterDateType.DATE
                 ef.filterDate = calendar
-            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date))
+            }.checkDate(CalFormatter.getCalendarFromDate(it.event.date)) &&
+                    EventsFilter().also { sssssu ->
+                        sssssu.showLBG = isLBG
+                    }.checkCategory(it.event.category)
         })
     }
 

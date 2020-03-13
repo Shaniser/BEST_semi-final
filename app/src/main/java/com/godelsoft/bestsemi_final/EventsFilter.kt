@@ -10,7 +10,7 @@ class EventsFilter {
     var showGlobal: Boolean = true
     var showLBG: Boolean = false
 
-    var dateType = EventsFilterDateType.ALL
+    var dateType = EventsFilterDateType.FUTURE
     var filterDate = Calendar.getInstance()
 
     fun checkCategory(cat: EventCategory): Boolean {

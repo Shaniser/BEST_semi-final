@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.view.View
 import com.firebase.ui.auth.AuthUI
 import com.godelsoft.bestsemi_final.glide.GlideApp
+import com.godelsoft.bestsemi_final.ui.calendar.CalendarFragment
 import com.godelsoft.bestsemi_final.util.FirestoreUtil
 import com.godelsoft.bestsemi_final.util.StorageUtil
 import kotlinx.android.synthetic.main.activity_my_account.*
@@ -62,6 +63,8 @@ class MyAccountActivity : AppCompatActivity() {
             }
 
             btn_sign_out.setOnClickListener {
+                EventsFilter.filter = EventsFilter()
+                CalendarFragment.isLBG = false
                 AuthUI.getInstance()
                     .signOut(this.context!!)
                     .addOnCompleteListener {
